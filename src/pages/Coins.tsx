@@ -1,4 +1,4 @@
-
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -17,6 +17,8 @@ const AppContainer = styled.div`
   max-width: 25rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
+  max-height: 40rem;
+  overflow: hidden;
 `;
 
 const Header = styled.header`
@@ -53,51 +55,41 @@ const Title = styled.h1`
   font-weight: bold;
 `;
 
-const coins = [
-  {
-    id: "btc-bitcoin",
-    name: "Bitcoin",
-    symbol: "BTC",
-    rank: 1,
-    is_new: false,
-    is_active: true,
-    type: "coin",
-  },
-  {
-    id: "eth-ethereum",
-    name: "Ethereum",
-    symbol: "ETH",
-    rank: 2,
-    is_new: false,
-    is_active: true,
-    type: "coin",
-  },
-  {
-    id: "hex-hex",
-    name: "HEX",
-    symbol: "HEX",
-    rank: 3,
-    is_new: false,
-    is_active: true,
-    type: "token",
-  },
-];
-
+interface CoinInterface {
+  id: string,
+  name: string,
+  symbol: string,
+  rank: number,
+  is_new: boolean,
+  is_active: boolean,
+  type: string,
+}
 
 function Coins() {
+  const [coins, setCoins] = useState<CoinInterface[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+      (async() => {
+          const response = await fetch("https://api.coinpaprika.com/v1/coins");
+          const json = await response.json();
+          setCoins(json.slice(0, 50));
+          setLoading(false);
+      })()
+  }, []);
+
   return (
     <Container>
       <AppContainer>
         <Header>
           <Title>🪙 Coin Tracker! 🪙</Title>
         </Header>
-        <CoinsList>
-          {coins.map((coin) => (
-            <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
-            </Coin>
-          ))}
-        </CoinsList>
+        {loading ? ("Loading...🪄") : (<CoinsList>
+        {coins.map((coin) => (
+          <Coin key={coin.id}>
+            <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+          </Coin>
+        ))}
+      </CoinsList>)}
       </AppContainer>
     </Container>
   );
