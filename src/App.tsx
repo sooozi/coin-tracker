@@ -33,8 +33,6 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
-    max-width: 400px;
-    margin: 0 auto;
   }
   menu, ol, ul {
     list-style: none;
@@ -66,12 +64,12 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return ( 
-    <>
+    <div>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <AppRouter />
       </ThemeProvider>
-    </>
+    </div>
   );
 }
 

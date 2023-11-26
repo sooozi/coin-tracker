@@ -3,7 +3,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 20px;
+`;
+
+const AppContainer = styled.div`
   padding: 0px 20px;
+  min-width: 400px;
+  min-height: 600px;
+  max-width: 25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
 `;
 
 const Header = styled.header`
@@ -34,8 +47,10 @@ const Coin = styled.li`
 `;
 
 const Title = styled.h1`
-  font-size: 48px;
+  font-size: 2rem;
   color: ${(props) => props.theme.accentColor};
+  text-transform: uppercase;
+  font-weight: bold;
 `;
 
 const coins = [
@@ -72,16 +87,18 @@ const coins = [
 function Coins() {
   return (
     <Container>
-      <Header>
-        <Title>코인</Title>
-      </Header>
-      <CoinsList>
-        {coins.map((coin) => (
-          <Coin key={coin.id}>
-            <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
-          </Coin>
-        ))}
-      </CoinsList>
+      <AppContainer>
+        <Header>
+          <Title>🪙 Coin Tracker! 🪙</Title>
+        </Header>
+        <CoinsList>
+          {coins.map((coin) => (
+            <Coin key={coin.id}>
+              <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+            </Coin>
+          ))}
+        </CoinsList>
+      </AppContainer>
     </Container>
   );
 }
