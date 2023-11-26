@@ -1,16 +1,16 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Coin from "./pages/Coin";
 import Coins from "./pages/Coins";
 
 function AppRouter() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Coins />} />
         <Route path="/coinId" element={<Coin />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
