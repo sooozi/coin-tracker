@@ -23,7 +23,7 @@ const AppContainer = styled.div`
 `;
 
 const Header = styled.header`
-  height: 15vh;
+  height: 10vh;
   display: flex;
   align-items: center;
 `;
