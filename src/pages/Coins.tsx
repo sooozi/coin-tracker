@@ -1,4 +1,6 @@
 
+
+
 function Coins() {
   return (
     <div>
