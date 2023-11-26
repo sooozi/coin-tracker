@@ -1,5 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import AppRouter from "./AppRouter";
+import { theme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -65,8 +66,10 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return ( 
     <>
-      {/* <GlobalStyle /> */}
-      <AppRouter />
+      <ThemeProvider theme={theme}>
+        {/* <GlobalStyle /> */}
+        <AppRouter />
+      </ThemeProvider>
     </>
   );
 }
