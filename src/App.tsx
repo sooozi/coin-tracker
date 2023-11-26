@@ -75,6 +75,12 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 10px;
     background: #393749; 
 }
+
+.main_logo {
+  width: 40px;
+  height: 20px;
+  margin-right: 10px;
+}
 `;
 
 function App() {

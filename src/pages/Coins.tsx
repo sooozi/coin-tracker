@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -24,7 +25,6 @@ const AppContainer = styled.div`
 const Header = styled.header`
   height: 15vh;
   display: flex;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -35,8 +35,7 @@ const CoinsList = styled.ul`
 `;
 
 const Coin = styled.li`
-  /* color: ${(props) => props.theme.bgColor}; */
-  margin-bottom: 10px;
+  margin: 0 5px 10px 0;
   a {
     border-radius: 15px;
     color: ${props => props.theme.textColor};
@@ -53,7 +52,7 @@ const Coin = styled.li`
 `;
 
 const Title = styled.h1`
-  font-size: clamp(1.3rem, 2vw, 3rem);
+  font-size: clamp(1.3rem, 1.8vw, 2.5rem);
   color: ${(props) => props.theme.accentColor};
   text-transform: uppercase;
   font-weight: bold;
@@ -85,7 +84,8 @@ function Coins() {
     <Container>
       <AppContainer>
         <Header>
-          <Title>🪙 Coin Tracker! 🪙</Title>
+          <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
+          <Title>Coin Tracker</Title>
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (
