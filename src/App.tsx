@@ -1,8 +1,6 @@
-import { Route, Routes } from "react-router-dom";
 import './App.css';
 import logo from './logo.svg';
-import Coin from "./pages/Coin";
-import Coins from "./pages/Coins";
+import Router from "./Router";
 
 function App() {
   return (
@@ -12,10 +10,7 @@ function App() {
         <p>
           라우터를 연결해보자!
         </p>
-        <Routes>
-          <Route path="/" element={<Coins />} />
-          <Route path="/coin" element={<Coin />} />
-        </Routes>
+        <Router />
       </header>
     </div>
   );
