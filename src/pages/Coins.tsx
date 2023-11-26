@@ -16,18 +16,19 @@ const Header = styled.header`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
-  border-radius: 15px;
+  /* color: ${(props) => props.theme.bgColor}; */
   margin-bottom: 10px;
   a {
+    border-radius: 15px;
+    color: ${props => props.theme.textColor};
     padding: 20px;
     transition: color 0.2s ease-in;
     display: block;
   }
   &:hover {
     a {
-      color: ${(props) => props.theme.accentColor};
+      background-color: ${props => props.theme.contBgColor};
+      color: ${props => props.theme.accentColor};
     }
   }
 `;
