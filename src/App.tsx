@@ -60,6 +60,21 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  ::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #3d3c4560;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #393749; 
+}
 `;
 
 function App() {

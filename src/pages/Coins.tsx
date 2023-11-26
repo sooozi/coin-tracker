@@ -7,17 +7,17 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 0 20px;
+  padding: 20px;
 `;
 
 const AppContainer = styled.div`
   padding: 0px 20px;
-  min-width: 400px;
+  min-width: 22vw;
   min-height: 600px;
   max-width: 25rem;
+  max-height: 600px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  max-height: 40rem;
   overflow: hidden;
 `;
 
@@ -28,7 +28,11 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const CoinsList = styled.ul``;
+const CoinsList = styled.ul`
+  overflow-y: auto;
+  height: calc(600px - 17vh);
+  margin-bottom: 20px;
+`;
 
 const Coin = styled.li`
   /* color: ${(props) => props.theme.bgColor}; */
@@ -49,7 +53,7 @@ const Coin = styled.li`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: clamp(1.3rem, 2vw, 3rem);
   color: ${(props) => props.theme.accentColor};
   text-transform: uppercase;
   font-weight: bold;
