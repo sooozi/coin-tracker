@@ -23,7 +23,7 @@ const AppContainer = styled.div`
 `;
 
 const Header = styled.header`
-  height: 10vh;
+  height: 12vh;
   display: flex;
   align-items: center;
 `;
@@ -36,11 +36,12 @@ const CoinsList = styled.ul`
 const Coin = styled.li`
   margin: 0 5px 10px 0;
   a {
+    display: flex;
+    align-items: center;
     border-radius: 15px;
     color: ${props => props.theme.textColor};
     padding: 20px;
     transition: color 0.2s ease-in;
-    display: block;
   }
   &:hover {
     a {
@@ -55,6 +56,12 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
   text-transform: uppercase;
   font-weight: bold;
+`;
+
+const Img = styled.img`
+    width: 25px;
+    height: 25px;
+    margin-right: 1rem;
 `;
 
 interface CoinInterface {
@@ -89,7 +96,10 @@ function Coins() {
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (
           <Coin key={coin.id}>
-            <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+            <Link to={`/${coin.id}`}>
+              <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
+              {coin.name} &rarr;
+            </Link>
           </Coin>
         ))}
       </CoinsList>)}
