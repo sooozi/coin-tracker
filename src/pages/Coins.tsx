@@ -30,8 +30,7 @@ const Header = styled.header`
 
 const CoinsList = styled.ul`
   overflow-y: auto;
-  height: calc(600px - 17vh);
-  margin-bottom: 20px;
+  height: calc(600px - 15vh);
 `;
 
 const Coin = styled.li`
