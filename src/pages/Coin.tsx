@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
+import { Params, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -25,35 +26,25 @@ const Loader = styled.span`
   text-align: center;
 `;
 
-interface RouteParams {
+interface RouteParams extends Params {
   coinId: string;
-  [key: string]: string | undefined;
 }
+
+interface LocationState {
+  state: {
+    name: string;
+  }
+};
 
 function Coin() {
   const [loading, setLoading] = useState(true);
-  const { coinId } = useParams<RouteParams>();
-  const location = useLocation();
-  const [info, setInfo] = useState({});
-  const [priceInfo, setPriceInfo] = useState({});
+  const { coinId } = useParams();
+  const { state } = useLocation() as LocationState;
 
-  useEffect(() => {
-    (async() => {
-        const infoData = await (
-            await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-        ).json();
-        const priceData = await (
-            await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-        ).json();
-        setInfo(infoData);
-        setPriceInfo(priceData);
-    })();
-}, []);
   return (
     <Container>
       <Header>
-        <Title>{location.state?.name || "Loading..."}</Title>
-        <Title>{coin.name}</Title>
+        <Title>{state?.name || "Loading..."}</Title>
       </Header>
       {loading ? <Loader>Loading...</Loader> : null}
     </Container>
