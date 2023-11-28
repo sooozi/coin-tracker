@@ -42,6 +42,10 @@ const Loader = styled.span`
   text-align: center;
 `;
 
+const Description = styled.p`
+  margin: 20px 0px;
+`;
+
 interface RouteParams extends Params {
   coinId: string;
 };
@@ -125,15 +129,18 @@ function Coin() {
         setPriceInfo(priceData);
         setLoading(false);
     })();
-}, []);
+}, [coinId]);
 
   return (
     <Container>
       <AppContainer>
         <Header>
-          <Title>{state?.name || "Loading..."}</Title>
+          <Title>
+              {state?.name ? state.name : loading ? "Loading..." : info?.name}
+          </Title>
         </Header>
         {loading ? <Loader>Loading...</Loader> : null}
+        <Description>{info?.description}</Description>
       </AppContainer>
     </Container>
   );
