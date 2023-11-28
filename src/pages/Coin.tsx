@@ -139,8 +139,11 @@ function Coin() {
               {state?.name ? state.name : loading ? "Loading..." : info?.name}
           </Title>
         </Header>
-        {loading ? <Loader>Loading...</Loader> : null}
-        <Description>{info?.description}</Description>
+        {loading ? (
+          <Loader>Loading...</Loader>
+        ) : (
+          <Description>{info?.description}</Description>
+        )}
       </AppContainer>
     </Container>
   );
