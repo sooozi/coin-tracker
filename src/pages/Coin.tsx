@@ -4,9 +4,22 @@ import { Params, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 0 20px;
-  max-width: 480px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+`;
+
+const AppContainer = styled.div`
+  padding: 0px 20px;
+  min-width: 320px;
+  min-height: 600px;
+  max-width: 25rem;
+  max-height: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
 `;
 
 const Header = styled.header`
@@ -17,7 +30,9 @@ const Header = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: 4rem;
+  font-size: 2rem;
+  font-weight: bolder;
+  text-transform: uppercase;
   color: ${(props) => props.theme.accentColor};
 `;
 
@@ -43,10 +58,12 @@ function Coin() {
 
   return (
     <Container>
-      <Header>
-        <Title>{state?.name || "Loading..."}</Title>
-      </Header>
-      {loading ? <Loader>Loading...</Loader> : null}
+      <AppContainer>
+        <Header>
+          <Title>{state?.name || "Loading..."}</Title>
+        </Header>
+        {loading ? <Loader>Loading...</Loader> : null}
+      </AppContainer>
     </Container>
   );
 }

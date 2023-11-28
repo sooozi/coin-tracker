@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const AppContainer = styled.div`
   padding: 0px 20px;
-  min-width: 22vw;
+  min-width: 320px;
   min-height: 600px;
   max-width: 25rem;
   max-height: 600px;
