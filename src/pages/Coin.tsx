@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Params, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -43,7 +44,7 @@ const Loader = styled.span`
 
 interface RouteParams extends Params {
   coinId: string;
-}
+};
 
 interface LocationState {
   state: {
@@ -55,6 +56,20 @@ function Coin() {
   const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
   const { state } = useLocation() as LocationState;
+  const [info, setInfo] = useState({});
+  const [priceInfo, setPriceInfo] = useState({});
+  useEffect(() => {
+    (async() => {
+        const infoData = await (
+            await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
+        ).json();
+        const priceData = await (
+            await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
+        ).json();
+        setInfo(infoData);
+        setPriceInfo(priceData);
+    })();
+}, []);
 
   return (
     <Container>
