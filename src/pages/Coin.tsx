@@ -21,6 +21,7 @@ const AppContainer = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   overflow: hidden;
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const Header = styled.header`

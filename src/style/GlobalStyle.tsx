@@ -52,33 +52,59 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: ${props => props.theme.bgColor};
     color: ${props => props.theme.textColor};
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(45deg, #bcb3f7, #afd2f5, #ffcdcd, #d0c9ff);
+    background-size: 400% 400%;
+    -webkit-animation: gradientBG 60s ease infinite forwards;
+    animation: gradientBG 60s ease infinite forwards;
+  }
+
+  @-webkit-keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
   a {
     text-decoration: none;
   }
   ::-webkit-scrollbar {
     width: 10px;
-}
- 
-::-webkit-scrollbar-track {
+  }
+  ::-webkit-scrollbar-track {
     background-color: #3d3c4560;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
+  } 
+  ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: #393749; 
-}
-
-.main_logo {
-  width: 40px;
-  height: 20px;
-  margin-right: 10px;
-}
+  }
+  .main_logo {
+    width: 40px;
+    height: 20px;
+    margin-right: 10px;
+  }
 `;
 
 export default GlobalStyle;
