@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, Params, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
+import { Link, Outlet, Params, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
-import Chart from "./Chart";
-import Price from "./Price";
 
 
 const Container = styled.div`
@@ -228,16 +226,7 @@ function Coin() {
               </Tab>
             </Tabs>
 
-            <Routes>
-              <Route
-                path={`/coin-tracker/${coinId}/price`}
-                element={<Price /* props, if any */ />}
-              />
-              <Route
-                path={`/coin-tracker/${coinId}/chart`}
-                element={<Chart /* props, if any */ />}
-              />
-            </Routes>
+            <Outlet />
           </>
         )}
       </AppContainer>
