@@ -87,8 +87,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 7px 0px;
   border-radius: 10px;
-  color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
   a {
     display: block;
   }
@@ -230,8 +229,14 @@ function Coin() {
             </Tabs>
 
             <Routes>
-              <Route path={`/coin-tracker/${coinId}/price`} element={<Price />} />
-              <Route path={`/coin-tracker/${coinId}/chart`} element={<Chart />} />
+              <Route
+                path={`/coin-tracker/${coinId}/price`}
+                element={<Price /* props, if any */ />}
+              />
+              <Route
+                path={`/coin-tracker/${coinId}/chart`}
+                element={<Chart /* props, if any */ />}
+              />
             </Routes>
           </>
         )}
