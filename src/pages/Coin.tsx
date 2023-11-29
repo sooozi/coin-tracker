@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, Params, useLocation, useParams } from "react-router-dom";
+import { Link, Params, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
+
 
 const Container = styled.div`
   display: flex;
@@ -68,6 +69,28 @@ const OverviewItem = styled.div`
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 5px;
+  }
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
   }
 `;
 
@@ -142,6 +165,9 @@ function Coin() {
   const { state } = useLocation() as LocationState;
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
+  const priceMatch = useMatch("/coin-tracker/:coinId/price");
+  const chartMatch = useMatch("/coin-tracker/:coinId/chart");
+
   useEffect(() => {
     (async() => {
         const infoData = await (
@@ -193,12 +219,20 @@ function Coin() {
                 <span>{priceInfo?.max_supply}</span>
               </OverviewItem>
             </Overview>
-            <Link to={`/${coinId}/price`}>
-              <Price />
-            </Link>
-            <Link to={`/${coinId}/chart`}>
-              <Chart />
-            </Link>
+
+            <Tabs>
+              <Tab isActive={priceMatch !== null}>
+                <Link to={`/coin-tracker/${coinId}/price`}>Price</Link>
+              </Tab>
+              <Tab isActive={chartMatch !== null}>
+                <Link to={`/coin-tracker/${coinId}/chart`}>Chart</Link>
+              </Tab>
+            </Tabs>
+
+            <Routes>
+              <Route path="/coin-tracker/:coinId/price" element={<Price />} />
+              <Route path="/coin-tracker/:coinId/chart" element={<Chart />} />
+            </Routes>
           </>
         )}
       </AppContainer>
