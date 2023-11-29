@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { Params, useLocation, useParams } from "react-router-dom";
+import { Link, Params, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Chart from "./Chart";
+import Price from "./Price";
 
 const Container = styled.div`
   display: flex;
@@ -47,6 +49,26 @@ const Loader = styled.span`
 const Description = styled.p`
   margin: 2rem 0px;
   line-height: 1.34;
+`;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
 `;
 
 interface RouteParams extends Params {
@@ -145,7 +167,39 @@ function Coin() {
         {loading ? (
           <Loader>Loading...</Loader>
         ) : (
-          <Description>{info?.description}</Description>
+          <>
+            <Overview>
+              <OverviewItem>
+                <span>Rank:</span>
+                <span>{info?.rank}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Symbol:</span>
+                <span>${info?.symbol}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Open Source:</span>
+                <span>{info?.open_source ? "Yes" : "No"}</span>
+              </OverviewItem>
+            </Overview>
+            <Description>{info?.description}</Description>
+            <Overview>
+              <OverviewItem>
+                <span>Total Suply:</span>
+                <span>{priceInfo?.total_supply}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Max Supply:</span>
+                <span>{priceInfo?.max_supply}</span>
+              </OverviewItem>
+            </Overview>
+            <Link to={`/${coinId}/price`}>
+              <Price />
+            </Link>
+            <Link to={`/${coinId}/chart`}>
+              <Chart />
+            </Link>
+          </>
         )}
       </AppContainer>
     </Container>
