@@ -14,6 +14,7 @@ const Container = styled.div`
 
 const AppContainer = styled.div`
   padding: 0px 20px;
+  width: 20rem;
   min-width: 320px;
   min-height: 600px;
   max-width: 25rem;
@@ -44,7 +45,8 @@ const Loader = styled.span`
 `;
 
 const Description = styled.p`
-  margin: 20px 0px;
+  margin: 2rem 0px;
+  line-height: 1.34;
 `;
 
 interface RouteParams extends Params {

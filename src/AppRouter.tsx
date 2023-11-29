@@ -6,8 +6,9 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/coin-tracker" element={<Coins />} />
-        <Route path="/:coinId" element={<Coin />} />
+        <Route path="/coin-tracker" element={<Coins />}>
+          <Route path=":coinId" element={<Coin />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

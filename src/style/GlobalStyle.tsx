@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(45deg, #bcb3f7, #afd2f5, #ffcdcd, #d0c9ff);
+    background: linear-gradient(45deg, #b7adf8, #bfd8f1, #ffcdcd, #d0c9ff);
     background-size: 400% 400%;
     -webkit-animation: gradientBG 60s ease infinite forwards;
     animation: gradientBG 60s ease infinite forwards;

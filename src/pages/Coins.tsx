@@ -13,6 +13,7 @@ const Container = styled.div`
 
 const AppContainer = styled.div`
   padding: 0px 20px;
+  width: 20rem;
   min-width: 320px;
   min-height: 600px;
   max-width: 25rem;
@@ -27,6 +28,7 @@ const Header = styled.header`
   height: 12vh;
   display: flex;
   align-items: center;
+  padding-right: 20px;
 `;
 
 const CoinsList = styled.ul`
@@ -97,7 +99,7 @@ function Coins() {
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (
           <Coin key={coin.id}>
-            <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+            <Link to={`/coin-tracker/${coin.id}`} state={{ name: coin.name }}>
               <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
               {coin.name} &rarr;
             </Link>
