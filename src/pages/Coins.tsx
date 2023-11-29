@@ -28,7 +28,7 @@ const Header = styled.header`
   height: 12vh;
   display: flex;
   align-items: center;
-  padding-right: 20px;
+  padding-left: 10px;
 `;
 
 const CoinsList = styled.ul`
@@ -43,7 +43,7 @@ const Coin = styled.li`
     align-items: center;
     border-radius: 15px;
     color: ${props => props.theme.textColor};
-    padding: 20px;
+    padding: 20px 10px;
     transition: color 0.2s ease-in;
   }
   &:hover {

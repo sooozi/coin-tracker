@@ -62,7 +62,7 @@ const GlobalStyle = createGlobalStyle`
     animation: gradientBG 60s ease infinite forwards;
   }
 
-  @-webkit-keyframes gradientBG {
+  /* @-webkit-keyframes gradientBG {
     0% {
       background-position: 0% 50%;
     }
@@ -83,7 +83,7 @@ const GlobalStyle = createGlobalStyle`
     100% {
       background-position: 0% 50%;
     }
-  }
+  } */
   a {
     text-decoration: none;
   }
