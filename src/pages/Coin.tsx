@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, Params, Route, Routes, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
+import { Link, Outlet, Params, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
 import styled from "styled-components";
-import Chart from "./Chart";
-import Price from "./Price";
 
 const Container = styled.div`
   display: flex;
@@ -167,7 +165,6 @@ function Coin() {
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
   const navigate = useNavigate();
   
-
   useEffect(() => {
     (async() => {
         const infoData = await (
@@ -220,30 +217,16 @@ function Coin() {
               </OverviewItem>
             </Overview>
 
-            {/* <Tabs>
-              <Tab isActive={priceMatch !== null} onClick={() => handleTabClick("Price")}>
+            <Tabs>
+              <Tab isActive={priceMatch !== null}>
                 <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
               </Tab>
-              <Tab isActive={chartMatch !== null} onClick={() => handleTabClick("Chart")}>
-                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
-              </Tab>
-            </Tabs> */}
-
-            <Tabs>
               <Tab isActive={chartMatch !== null}>
-                <Link to={`/${coinId}/chart`}>Chart</Link>
-              </Tab>
-              <Tab isActive={priceMatch !== null}>
-                <Link to={`/${coinId}/price`}>Price</Link>
+                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
               </Tab>
             </Tabs>
 
-
-            <Routes>
-              <Route path="price" element={<Price />} />
-              <Route path="chart" element={<Chart />} />
-              {/* <Route path="/coin-tracker/:coinId/Chart" element={<Chart />} /> */}
-            </Routes>
+            <Outlet/>
 
           </>
         )}
