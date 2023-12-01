@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, Outlet, Params, useLocation, useMatch, useParams } from 'react-router-dom';
+import { Link, Params, Route, Routes, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
 import styled from "styled-components";
-
+import Chart from "./Chart";
+import Price from "./Price";
 
 const Container = styled.div`
   display: flex;
@@ -162,8 +163,9 @@ function Coin() {
   const { state } = useLocation() as LocationState;
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
-  const priceMatch = useMatch("/coin-tracker/:coinId/price");
-  const chartMatch = useMatch("/coin-tracker/:coinId/chart");
+  const priceMatch = useMatch("/coin-tracker/:coinId/Price");
+  const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async() => {
@@ -178,6 +180,11 @@ function Coin() {
         setLoading(false);
     })();
 }, [coinId]);
+
+const handleTabClick = (tab: string) => {
+  // 프로그래밍 방식으로 라우트 변경
+  navigate(`/coin-tracker/${coinId}/${tab.toLowerCase()}`);
+};
 
   return (
     <Container>
@@ -218,15 +225,19 @@ function Coin() {
             </Overview>
 
             <Tabs>
-              <Tab isActive={priceMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/price`}>Price</Link>
+              <Tab isActive={priceMatch !== null} onClick={() => handleTabClick("Price")}>
+                <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
               </Tab>
-              <Tab isActive={chartMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/chart`}>Chart</Link>
+              <Tab isActive={chartMatch !== null} onClick={() => handleTabClick("Chart")}>
+                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
               </Tab>
             </Tabs>
 
-            <Outlet />
+            <Routes>
+              <Route path="/coin-tracker/:coinId/Price" element={<Price />} />
+              <Route path="/coin-tracker/:coinId/Chart" element={<Chart />} />
+            </Routes>
+
           </>
         )}
       </AppContainer>
