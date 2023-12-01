@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { fetchCoins } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -78,6 +80,7 @@ interface CoinInterface {
 }
 
 function Coins() {
+  useQuery('allCoins', fetchCoins);
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
