@@ -170,7 +170,7 @@ function Coin() {
   useEffect(() => {
     (async() => {
         const infoData = await (
-            await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
+            await fetch(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`)
         ).json();
         const priceData = await (
             await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
