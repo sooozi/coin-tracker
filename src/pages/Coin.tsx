@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, Outlet, Params, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -84,15 +84,12 @@ const Tab = styled.span<{ isActive: boolean }>`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 7px 0px;
   border-radius: 10px;
-  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+  color: ${(props) => props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
+    color: inherit;
   }
 `;
-
-interface RouteParams extends Params {
-  coinId: string;
-};
 
 interface LocationState {
   state: {
@@ -163,7 +160,6 @@ function Coin() {
   const [priceInfo, setPriceInfo] = useState<PriceData>();
   const priceMatch = useMatch("/coin-tracker/:coinId/Price");
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
-  const navigate = useNavigate();
   
   useEffect(() => {
     (async() => {
