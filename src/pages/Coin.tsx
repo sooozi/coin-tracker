@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
-import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import { fetchCoinTickers, fetchCoins } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -158,30 +159,25 @@ function Coin() {
   const { state } = useLocation() as LocationState;
   const priceMatch = useMatch("/coin-tracker/:coinId/Price");
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
-  // const [loading, setLoading] = useState(true);
-  // const [info, setInfo] = useState<InfoData>();
+  const [loading, setLoading] = useState(true);
+  const [info, setInfo] = useState<InfoData>();
   // const [priceInfo, setPriceInfo] = useState<PriceData>();
   
-  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
-    ["info", coinId],
-    () => fetchCoinInfo(coinId)
-  );
+  const {isLoading, data } = 
+  useQuery<InfoData[]>(["key"], fetchCoins)
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId),
-    {
-      refetchInterval: 5000
-    }
+    () => fetchCoinTickers(coinId)
   );
   
-  const loading = infoLoading || tickersLoading;
+  const isloading = isLoading || tickersLoading;
 
   return (
     <Container>
       <AppContainer>
         <Header>
           <Title>
-              {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+              {state?.name ? state.name : loading ? "Loading..." : info?.name}
           </Title>
         </Header>
         {loading ? (
@@ -191,18 +187,18 @@ function Coin() {
             <Overview>
               <OverviewItem>
                 <span>Rank:</span>
-                <span>{infoData?.rank}</span>
+                <span>{info?.rank}</span>
               </OverviewItem>
               <OverviewItem>
                 <span>Symbol:</span>
-                <span>${infoData?.symbol}</span>
+                <span>${info?.symbol}</span>
               </OverviewItem>
               <OverviewItem>
                 <span>Open Source:</span>
-                <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                <span>{info?.open_source ? "Yes" : "No"}</span>
               </OverviewItem>
             </Overview>
-            <Description>{infoData?.description}</Description>
+            <Description>{info?.description}</Description>
             <Overview>
               <OverviewItem>
                 <span>Total Suply:</span>
