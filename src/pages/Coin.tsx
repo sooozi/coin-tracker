@@ -166,6 +166,7 @@ function Coin() {
   const priceMatch = useMatch("/coin-tracker/:coinId/Price");
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     (async() => {
@@ -180,11 +181,6 @@ function Coin() {
         setLoading(false);
     })();
 }, [coinId]);
-
-const handleTabClick = (tab: string) => {
-  // 프로그래밍 방식으로 라우트 변경
-  navigate(`/coin-tracker/${coinId}/${tab.toLowerCase()}`);
-};
 
   return (
     <Container>
@@ -224,18 +220,29 @@ const handleTabClick = (tab: string) => {
               </OverviewItem>
             </Overview>
 
-            <Tabs>
+            {/* <Tabs>
               <Tab isActive={priceMatch !== null} onClick={() => handleTabClick("Price")}>
                 <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
               </Tab>
               <Tab isActive={chartMatch !== null} onClick={() => handleTabClick("Chart")}>
                 <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
               </Tab>
+            </Tabs> */}
+
+            <Tabs>
+              <Tab isActive={chartMatch !== null}>
+                <Link to={`/${coinId}/chart`}>Chart</Link>
+              </Tab>
+              <Tab isActive={priceMatch !== null}>
+                <Link to={`/${coinId}/price`}>Price</Link>
+              </Tab>
             </Tabs>
 
+
             <Routes>
-              <Route path="/coin-tracker/:coinId/Price" element={<Price />} />
-              <Route path="/coin-tracker/:coinId/Chart" element={<Chart />} />
+              <Route path="price" element={<Price />} />
+              <Route path="chart" element={<Chart />} />
+              {/* <Route path="/coin-tracker/:coinId/Chart" element={<Chart />} /> */}
             </Routes>
 
           </>
