@@ -4,12 +4,14 @@ import AppRouter from "./AppRouter";
 import GlobalStyle from './style/GlobalStyle';
 import { theme } from './theme';
 
+
+
 function App() {
   return ( 
     <div>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <AppRouter />
+          <AppRouter />
         <ReactQueryDevtools initialIsOpen={true}/>
       </ThemeProvider>
     </div>

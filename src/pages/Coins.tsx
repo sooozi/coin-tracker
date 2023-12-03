@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -80,9 +79,9 @@ interface CoinInterface {
 }
 
 function Coins() {
-  useQuery('allCoins', fetchCoins);
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, data } = useQuery<CoinInterface[]>("allCoins", fetchCoins);
+  // const [coins, setCoins] = useState<CoinInterface[]>([]);
+  // const [loading, setLoading] = useState(true);
   // useEffect(() => {
   //     (async() => {
   //         const response = await fetch("https://api.coinpaprika.com/v1/coins");
@@ -99,8 +98,8 @@ function Coins() {
           <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
           <Title>Coin Tracker</Title>
         </Header>
-        {loading ? ("Loading...🪄") : (<CoinsList>
-        {coins.map((coin) => (
+        {isLoading ? ("Loading...🪄") : (<CoinsList>
+        {data?.slice(0, 50).map((coin) => (
           <Coin key={coin.id}>
             <Link to={`/coin-tracker/${coin.id}`} state={{ name: coin.name }}>
               <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
