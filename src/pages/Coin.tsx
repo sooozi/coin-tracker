@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
-import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -154,30 +153,34 @@ interface PriceData {
 }
 
 function Coin() {
+  const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
   const { state } = useLocation() as LocationState;
-  const priceMatch = useMatch("/coin-tracker/:coinId/Price");
-  const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
-  // const [loading, setLoading] = useState(true);
-  // const [info, setInfo] = useState<InfoData>();
-  // const [priceInfo, setPriceInfo] = useState<PriceData>();
-  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
-    ["info", coinId],
-    () => fetchCoinInfo(coinId)
-  );
+  const [info, setInfo] = useState<InfoData>();
+  const [priceInfo, setPriceInfo] = useState<PriceData>();
+  const priceMatch = useMatch("/coin-tracker/:coinId/price");
+  const chartMatch = useMatch("/coin-tracker/:coinId/chart");
   
-  const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
-    ["tickers", coinId],
-    () => fetchCoinTickers(coinId)
-  );
-    
-  const loading = infoLoading || tickersLoading;
+  useEffect(() => {
+    (async() => {
+        const infoData = await (
+            await fetch(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`)
+        ).json();
+        const priceData = await (
+            await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
+        ).json();
+        setInfo(infoData);
+        setPriceInfo(priceData);
+        setLoading(false);
+    })();
+}, [coinId]);
+
   return (
     <Container>
       <AppContainer>
         <Header>
           <Title>
-              {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+              {state?.name ? state.name : loading ? "Loading..." : info?.name}
           </Title>
         </Header>
         {loading ? (
@@ -187,35 +190,35 @@ function Coin() {
             <Overview>
               <OverviewItem>
                 <span>Rank:</span>
-                <span>{infoData?.rank}</span>
+                <span>{info?.rank}</span>
               </OverviewItem>
               <OverviewItem>
                 <span>Symbol:</span>
-                <span>${infoData?.symbol}</span>
+                <span>${info?.symbol}</span>
               </OverviewItem>
               <OverviewItem>
                 <span>Open Source:</span>
-                <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                <span>{info?.open_source ? "Yes" : "No"}</span>
               </OverviewItem>
             </Overview>
-            <Description>{infoData?.description}</Description>
+            <Description>{info?.description}</Description>
             <Overview>
               <OverviewItem>
                 <span>Total Suply:</span>
-                <span>{tickersData?.total_supply}</span>
+                <span>{priceInfo?.total_supply}</span>
               </OverviewItem>
               <OverviewItem>
                 <span>Max Supply:</span>
-                <span>{tickersData?.max_supply}</span>
+                <span>{priceInfo?.max_supply}</span>
               </OverviewItem>
             </Overview>
 
             <Tabs>
               <Tab isActive={priceMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
+                <Link to={`/coin-tracker/${coinId}/price`}>Price</Link>
               </Tab>
               <Tab isActive={chartMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
+                <Link to={`/coin-tracker/${coinId}/chart`}>Chart</Link>
               </Tab>
             </Tabs>
 
