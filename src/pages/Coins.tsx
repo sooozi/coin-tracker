@@ -105,6 +105,7 @@ function Coins() {
               {coin.name} &rarr;
             </Link>
           </Coin>
+          
         ))}
       </CoinsList>)}
       </AppContainer>
