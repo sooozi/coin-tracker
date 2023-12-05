@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
+// import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { fetchCoins } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -79,17 +79,17 @@ interface CoinInterface {
 }
 
 function Coins() {
-  const { isLoading, data } = useQuery<CoinInterface[]>("allCoins", fetchCoins);
-  // const [coins, setCoins] = useState<CoinInterface[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //     (async() => {
-  //         const response = await fetch("https://api.coinpaprika.com/v1/coins");
-  //         const json = await response.json();
-  //         setCoins(json.slice(0, 50));
-  //         setLoading(false);
-  //     })()
-  // }, []);
+  // useQuery('allCoins', fetchCoins);
+  const [coins, setCoins] = useState<CoinInterface[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+      (async() => {
+          const response = await fetch("https://api.coinpaprika.com/v1/coins");
+          const json = await response.json();
+          setCoins(json.slice(0, 50));
+          setLoading(false);
+      })()
+  }, []);
 
   return (
     <Container>
@@ -98,11 +98,11 @@ function Coins() {
           <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
           <Title>Coin Tracker</Title>
         </Header>
-        {isLoading ? ("Loading...🪄") : (<CoinsList>
-        {data?.slice(0, 50).map((coin) => (
+        {loading ? ("Loading...🪄") : (<CoinsList>
+        {coins.map((coin) => (
           <Coin key={coin.id}>
             <Link to={`/coin-tracker/${coin.id}`} state={{ name: coin.name }}>
-              <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} alt={`${coin.name} Icon`}/>
+              <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
               {coin.name} &rarr;
             </Link>
           </Coin>
