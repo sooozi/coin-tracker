@@ -197,7 +197,7 @@ interface LocationState {
 interface InfoData {
     id: string;
     name: string;
-    symbol: string | undefined;
+    symbol: string;
     rank: number;
     is_new: boolean;
     is_active: boolean;
@@ -300,7 +300,7 @@ function Coin() {
 
         <Header>
           <TitleWrap>
-            <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol?.toLowerCase()}`}/>
+            <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}/>
             <Title>
                 {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
             </Title>
