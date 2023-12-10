@@ -29,10 +29,15 @@ const AppContainer = styled.div`
   background-color: ${(props) => props.theme.bgColor};
 `;
 
+const ContWrap = styled.div`
+  overflow-y: auto;
+  height: calc(600px - 15vh);
+`;
+
 const Header = styled.header`
   height: 15vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -55,8 +60,11 @@ const Description = styled.p`
 
 const RankBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  width: 4rem;
+  height: 4rem;
   padding: 10px;
   border-radius: 50%;
 `;
@@ -120,7 +128,6 @@ const Reference = styled.div`
 const RefLink = styled.a<Ireficon>`
   display: ${(props) => (props.isHref ? "block" : "none")};
   background-color: ${(props) => props.theme.grayDiv};
-  color: ${(props) => props.iconColor};
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -138,6 +145,18 @@ const RefLink = styled.a<Ireficon>`
   span {
     color: ${(props) => props.theme.textColor};
     font-size: 16px;
+  }
+`;
+
+const IconBox = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+  svg {
+    width: 15px;
+    height: 15px;
   }
 `;
 
@@ -209,7 +228,6 @@ interface PriceData {
 }
 
 interface Ireficon {
-  iconColor: string;
   isHref: string | undefined;
 }
 
@@ -256,14 +274,14 @@ function Coin() {
               {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
           </Title>
           <RankBox>
-            <span>Rank:</span>
+            <span>Rank</span>
             <span>{infoData?.rank}</span>
           </RankBox>
         </Header>
         {loading ? (
           <Loader>Loading...</Loader>
         ) : (
-          <>
+          <ContWrap>
             <Overview>
               <OverviewItem>
                 <span>PRICE(KRW):</span>
@@ -292,53 +310,51 @@ function Coin() {
             <Reference>
               <span>Reference Link</span>
               <div>
-              <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }} />
-              <FontAwesomeIcon icon={faFacebook} />
-              <FontAwesomeIcon icon={faYoutube} />
                 <RefLink
                   target="_blank"
-                  iconColor="#171515"
                   isHref={infoData?.links.source_code}
                   href={infoData?.links.source_code}
                 >
                   <div>
-                    <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
+                    <IconBox>
+                      <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
+                    </IconBox>
                     <span>Github</span>
                   </div>
                 </RefLink>
                 <RefLink
                   target="_blank"
-                  iconColor="#FF4500"
                   isHref={infoData?.links.reddit}
                   href={infoData?.links.reddit}
                 >
                   <div>
-                    <i className="fa-brands fa-reddit fa-lg"></i>
-                    <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
+                    <IconBox>
+                      <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
+                    </IconBox>
                     <span>Reddit</span>
                   </div>
                 </RefLink>
                 <RefLink
                   target="_blank"
-                  iconColor="#FE0000"
                   isHref={infoData?.links.youtube}
                   href={infoData?.links.youtube}
                 >
                   <div>
-                    <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
-                    <i className="fa-brands fa-youtube fa-lg"></i>
+                    <IconBox>
+                      <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
+                    </IconBox>
                     <span>Youtube</span>
                   </div>
                 </RefLink>
                 <RefLink
                   target="_blank"
-                  iconColor="#1877F2"
                   isHref={infoData?.links.facebook}
                   href={infoData?.links.facebook}
                 >
                   <div>
-                    <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
-                    <i className="fa-brands fa-facebook fa-lg"></i>
+                    <IconBox> 
+                      <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
+                    </IconBox>
                     <span>Facebook</span>
                   </div>
                 </RefLink>
@@ -356,7 +372,7 @@ function Coin() {
 
             <Outlet/>
 
-          </>
+          </ContWrap>
         )}
       </AppContainer>
     </Container>
