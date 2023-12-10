@@ -33,6 +33,7 @@ const AppContainer = styled.div`
 
 const ContWrap = styled.div`
   overflow-y: auto;
+  height: calc(600px - 20vh);
 `;
 
 const Nav = styled.div`
@@ -141,6 +142,9 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  span {
+    font-size: 12px;
+  }
   span:first-child {
     font-size: 12px;
     font-weight: 400;
@@ -342,7 +346,7 @@ function Coin() {
 
         <Nav>
           <BtnToHome>
-            <Link to={`/coin-tracker/`}>
+            <Link to={`/coin-tracker`}>
               <FontAwesomeIcon icon={faAngleLeft} style={{ color: theme.pointColor }}/>
               <span style={{ color: theme.pointColor, marginLeft : "0.5rem" }}>Go To Home</span>
             </Link>
@@ -385,16 +389,17 @@ function Coin() {
           <Loader>Loading...</Loader>
         ) : (
           <ContWrap>
-            <Overview>
-              <OverviewItem>
-                <span>Price(KRW):</span>
-                <span>${tickersData?.quotes.USD.price}</span>
-              </OverviewItem>
-              <OverviewItem>
-                <span>percent_change_24h:</span>
-                <span>{tickersData?.quotes.USD.percent_change_24h}</span>
-              </OverviewItem>
-            </Overview>
+            <Tabs>
+              <Tab isActive={priceMatch !== null}>
+                <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
+              </Tab>
+              <Tab isActive={chartMatch !== null}>
+                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
+              </Tab>
+            </Tabs>
+
+            <Outlet/>
+
             <Overview>
                 <span>Description</span>
                 <Description>
@@ -403,11 +408,11 @@ function Coin() {
             </Overview>
             <Overview>
               <OverviewItem>
-                <span>Total Suply:</span>
+                <span>Total Suply</span>
                 <span>{tickersData?.total_supply}</span>
               </OverviewItem>
               <OverviewItem>
-                <span>Max Supply:</span>
+                <span>Max Supply</span>
                 <span>{tickersData?.max_supply}</span>
               </OverviewItem>
             </Overview>
@@ -465,18 +470,6 @@ function Coin() {
                 </RefLink>
               </div>
             </Reference>
-
-            <Tabs>
-              <Tab isActive={priceMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
-              </Tab>
-              <Tab isActive={chartMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
-              </Tab>
-            </Tabs>
-
-            <Outlet/>
-
           </ContWrap>
         )}
       </AppContainer>
