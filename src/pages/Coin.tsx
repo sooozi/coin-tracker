@@ -342,7 +342,7 @@ function Coin() {
 
         <Nav>
           <BtnToHome>
-            <Link to={"/"}>
+            <Link to={`/coin-tracker/`}>
               <FontAwesomeIcon icon={faAngleLeft} style={{ color: theme.pointColor }}/>
               <span style={{ color: theme.pointColor, marginLeft : "0.5rem" }}>Go To Home</span>
             </Link>
