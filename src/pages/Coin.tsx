@@ -40,11 +40,30 @@ const Header = styled.header`
   align-items: center;
 `;
 
+const TitleWrap = styled.div`
+  
+`;
+
+const TitleCont = styled.div`
+  
+`;
+
 const Title = styled.h1`
   font-size: 1.8rem;
   font-weight: bolder;
   text-transform: uppercase;
   color: ${(props) => props.theme.accentColor};
+`;
+
+const Percent24h = styled.span<IPercent24h>`
+  color: ${(props) =>
+    props.percent24h && props.percent24h >= 0 ? "#DA5157" : "#4880EE"};
+  font-weight: 600;
+  span {
+    color: ${(props) => props.theme.grayText};
+    font-weight: normal;
+    margin-left: 5px;
+  }
 `;
 
 const Loader = styled.span`
@@ -159,6 +178,16 @@ const IconBox = styled.div`
   }
 `;
 
+const Img = styled.img`
+    width: 25px;
+    height: 25px;
+    margin-right: 1rem;
+`;
+
+interface IPercent24h {
+  percent24h: number | undefined;
+}
+
 interface LocationState {
   state: {
     name: string;
@@ -168,7 +197,7 @@ interface LocationState {
 interface InfoData {
     id: string;
     name: string;
-    symbol: string;
+    symbol: string | undefined;
     rank: number;
     is_new: boolean;
     is_active: boolean;
@@ -268,15 +297,37 @@ function Coin() {
   return (
     <Container>
       <AppContainer>
+
         <Header>
-          <Title>
-              {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-          </Title>
+          <TitleWrap>
+            <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol?.toLowerCase()}`}/>
+            <Title>
+                {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+            </Title>
+            <TitleCont>
+              <span>PRICE(KRW):</span>
+              <span>${tickersData?.quotes.USD.price.toFixed(2).toLocaleString()}</span>
+            </TitleCont>
+            <TitleCont>
+              <span>percent_change_24h:</span>
+              <span>{tickersData?.quotes.USD.percent_change_24h}</span>
+              <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
+                {tickersData?.quotes.USD.price && tickersData?.quotes.USD.percent_change_24h
+                  ? tickersData?.quotes.USD.percent_change_24h >= 0
+                    ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                    : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                  : undefined}{" "}
+                ({tickersData?.quotes.USD.percent_change_24h}%) <span>24h ago</span>
+              </Percent24h>
+            </TitleCont>
+
+          </TitleWrap>
           <RankBox>
             <span>Rank</span>
             <span>{infoData?.rank}</span>
           </RankBox>
         </Header>
+
         {loading ? (
           <Loader>Loading...</Loader>
         ) : (
@@ -292,10 +343,10 @@ function Coin() {
               </OverviewItem>
             </Overview>
             <Overview>
-              <Description>
                 <span>Description</span>
-                {infoData?.description}
-              </Description>
+                <Description>
+                  {infoData?.description}
+                </Description>
             </Overview>
             <Overview>
               <OverviewItem>
