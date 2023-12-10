@@ -156,7 +156,7 @@ const OverviewItem = styled.div`
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 25px 0;
+  margin: 0 0 25px;
   gap: 10px;
 `;
 
@@ -172,20 +172,6 @@ const Tab = styled.span<{ isActive: boolean }>`
   a {
     display: block;
     color: inherit;
-  }
-`;
-
-const Reference = styled.div`
-  background-color: ${(props) => props.theme.divColor};
-  border-radius: 15px;
-  padding: 25px 22px;
-  margin-bottom: 20px;
-  color: ${(props) => props.theme.textColor};
-  > span {
-    font-weight: 600;
-    font-size: 18px;
-    display: block;
-    margin-bottom: 15px;
   }
 `;
 
@@ -361,116 +347,119 @@ function Coin() {
             </Title>
           </TitleLogoCont>
 
-          <TitleWrap>
-            <TitleContWrap>
-              <TitleCont>
-                <span>${tickersData?.quotes.USD.price.toFixed(2).toLocaleString()}</span>
-              </TitleCont>
-              <TitleCont>
-                <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
-                  {tickersData?.quotes.USD.price && tickersData?.quotes.USD.percent_change_24h
-                    ? tickersData?.quotes.USD.percent_change_24h >= 0
-                      ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
-                      : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
-                    : undefined}{" "}
-                  ({tickersData?.quotes.USD.percent_change_24h}%) <span>24h ago</span>
-                </Percent24h>
-              </TitleCont>
-            </TitleContWrap>
-
-            <RankBox>
-              <span>Rank</span>
-              <span>{infoData?.rank}</span>
-            </RankBox>
-          </TitleWrap>
         </Header>
 
         {loading ? (
           <Loader>Loading...</Loader>
         ) : (
-          <ContWrap>
-            <Tabs>
-              <Tab isActive={priceMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
-              </Tab>
-              <Tab isActive={chartMatch !== null}>
-                <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
-              </Tab>
-            </Tabs>
+          <>
+            <TitleWrap>
+              <TitleContWrap>
+                <TitleCont>
+                  <span>${tickersData?.quotes.USD.price.toFixed(2).toLocaleString()}</span>
+                </TitleCont>
+                <TitleCont>
+                  <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
+                    {tickersData?.quotes.USD.price && tickersData?.quotes.USD.percent_change_24h
+                      ? tickersData?.quotes.USD.percent_change_24h >= 0
+                        ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                        : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                      : undefined}{" "}
+                    ({tickersData?.quotes.USD.percent_change_24h}%) <span>24h ago</span>
+                  </Percent24h>
+                </TitleCont>
+              </TitleContWrap>
 
-            <Outlet/>
+              <RankBox>
+                <span>Rank</span>
+                <span>{infoData?.rank}</span>
+              </RankBox>
+            </TitleWrap>
 
-            <Overview>
-                <span>Description</span>
-                <Description>
-                  {infoData?.description}
-                </Description>
-            </Overview>
-            <Overview>
-              <OverviewItem>
-                <span>Total Suply</span>
-                <span>{tickersData?.total_supply}</span>
-              </OverviewItem>
-              <OverviewItem>
-                <span>Max Supply</span>
-                <span>{tickersData?.max_supply}</span>
-              </OverviewItem>
-            </Overview>
+            <ContWrap>
+              <Tabs>
+                <Tab isActive={priceMatch !== null}>
+                  <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
+                </Tab>
+                <Tab isActive={chartMatch !== null}>
+                  <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
+                </Tab>
+              </Tabs>
 
-            <Reference>
-              <span>Reference Link</span>
-              <div>
-                <RefLink
-                  target="_blank"
-                  isHref={infoData?.links.source_code}
-                  href={infoData?.links.source_code}
-                >
-                  <div>
-                    <IconBox>
-                      <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
-                    </IconBox>
-                    <span>Github</span>
-                  </div>
-                </RefLink>
-                <RefLink
-                  target="_blank"
-                  isHref={infoData?.links.reddit}
-                  href={infoData?.links.reddit}
-                >
-                  <div>
-                    <IconBox>
-                      <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
-                    </IconBox>
-                    <span>Reddit</span>
-                  </div>
-                </RefLink>
-                <RefLink
-                  target="_blank"
-                  isHref={infoData?.links.youtube}
-                  href={infoData?.links.youtube}
-                >
-                  <div>
-                    <IconBox>
-                      <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
-                    </IconBox>
-                    <span>Youtube</span>
-                  </div>
-                </RefLink>
-                <RefLink
-                  target="_blank"
-                  isHref={infoData?.links.facebook}
-                  href={infoData?.links.facebook}
-                >
-                  <div>
-                    <IconBox> 
-                      <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
-                    </IconBox>
-                    <span>Facebook</span>
-                  </div>
-                </RefLink>
-              </div>
-            </Reference>
-          </ContWrap>
+              <Outlet/>
+
+              <Overview>
+                  <span>Description</span>
+                  <Description>
+                    {infoData?.description}
+                  </Description>
+              </Overview>
+              <Overview>
+                <OverviewItem>
+                  <span>Total Suply</span>
+                  <span>{tickersData?.total_supply}</span>
+                </OverviewItem>
+                <OverviewItem>
+                  <span>Max Supply</span>
+                  <span>{tickersData?.max_supply}</span>
+                </OverviewItem>
+              </Overview>
+
+              <Overview>
+                <span>Reference Link</span>
+                <div>
+                  <RefLink
+                    target="_blank"
+                    isHref={infoData?.links.source_code}
+                    href={infoData?.links.source_code}
+                  >
+                    <div>
+                      <IconBox>
+                        <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
+                      </IconBox>
+                      <span>Github</span>
+                    </div>
+                  </RefLink>
+                  <RefLink
+                    target="_blank"
+                    isHref={infoData?.links.reddit}
+                    href={infoData?.links.reddit}
+                  >
+                    <div>
+                      <IconBox>
+                        <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
+                      </IconBox>
+                      <span>Reddit</span>
+                    </div>
+                  </RefLink>
+                  <RefLink
+                    target="_blank"
+                    isHref={infoData?.links.youtube}
+                    href={infoData?.links.youtube}
+                  >
+                    <div>
+                      <IconBox>
+                        <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
+                      </IconBox>
+                      <span>Youtube</span>
+                    </div>
+                  </RefLink>
+                  <RefLink
+                    target="_blank"
+                    isHref={infoData?.links.facebook}
+                    href={infoData?.links.facebook}
+                  >
+                    <div>
+                      <IconBox> 
+                        <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
+                      </IconBox>
+                      <span>Facebook</span>
+                    </div>
+                  </RefLink>
+                </div>
+              </Overview>
+            </ContWrap>
+          </>
         )}
       </AppContainer>
     </Container>
