@@ -9,15 +9,16 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  max-width: 20rem;
+  margin: 0 auto;
   padding: 20px;
 `;
 
 const AppContainer = styled.div`
   padding: 0px 20px;
-  width: 20rem;
-  min-width: 320px;
+  width: 100%;
+  min-width: 300px;
   min-height: 600px;
-  max-width: 25rem;
   max-height: 600px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
