@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { faFacebook, faGithub, faReddit, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
@@ -10,15 +12,16 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  max-width: 20rem;
+  margin: 0 auto;
   padding: 20px;
 `;
 
 const AppContainer = styled.div`
   padding: 0px 20px;
-  width: 20rem;
-  min-width: 320px;
+  width: 100%;
+  min-width: 300px;
   min-height: 600px;
-  max-width: 25rem;
   max-height: 600px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -48,6 +51,14 @@ const Loader = styled.span`
 const Description = styled.p`
   margin: 2rem 0px;
   line-height: 1.34;
+`;
+
+const RankBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 50%;
 `;
 
 const Overview = styled.div`
@@ -92,6 +103,44 @@ const Tab = styled.span<{ isActive: boolean }>`
   }
 `;
 
+const Reference = styled.div`
+  background-color: ${(props) => props.theme.divColor};
+  border-radius: 15px;
+  padding: 25px 22px;
+  margin-bottom: 20px;
+  color: ${(props) => props.theme.textColor};
+  > span {
+    font-weight: 600;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 15px;
+  }
+`;
+
+const RefLink = styled.a<Ireficon>`
+  display: ${(props) => (props.isHref ? "block" : "none")};
+  background-color: ${(props) => props.theme.grayDiv};
+  color: ${(props) => props.iconColor};
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  :hover {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  }
+  i {
+    margin-right: 8px;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  span {
+    color: ${(props) => props.theme.textColor};
+    font-size: 16px;
+  }
+`;
+
 interface LocationState {
   state: {
     name: string;
@@ -117,6 +166,12 @@ interface InfoData {
     hash_algorithm: string;
     first_data_at: string;
     last_data_at: string;
+    links: {
+      facebook?: string;
+      reddit?: string;
+      source_code?: string;
+      youtube?: string;
+    };
 }
 
 interface PriceData {
@@ -131,26 +186,31 @@ interface PriceData {
     first_data_at: string;
     last_updated: string;
     quotes: {
-        USD: {
-        ath_date: string;
-        ath_price: number;
-        market_cap: number;
-        market_cap_change_24h: number;
-        percent_change_1h: number;
-        percent_change_1y: number;
-        percent_change_6h: number;
-        percent_change_7d: number;
-        percent_change_12h: number;
-        percent_change_15m: number;
-        percent_change_24h: number;
-        percent_change_30d: number;
-        percent_change_30m: number;
-        percent_from_price_ath: number;
-        price: number;
-        volume_24h: number;
-        volume_24h_change_24h: number;
+      USD: {
+          price: number; // 현재 시세
+          ath_date: string;
+          ath_price: number;
+          market_cap: number;
+          market_cap_change_24h: number; // 시총 가격 변동률
+          percent_change_1h: number;
+          percent_change_6h: number;
+          percent_change_12h: number;
+          percent_change_24h: number;
+          percent_change_7d: number;
+          percent_change_30d: number;
+          percent_change_15m: number;
+          percent_change_30m: number;
+          percent_change_1y: number;
+          percent_from_price_ath: number;
+          volume_24h: number; // 지난 24시간 거래량
+          volume_24h_change_24h: number; // 지난 24시간 거래 변동률
         };
     };
+}
+
+interface Ireficon {
+  iconColor: string;
+  isHref: string | undefined;
 }
 
 function Coin() {
@@ -195,6 +255,10 @@ function Coin() {
           <Title>
               {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
           </Title>
+          <RankBox>
+            <span>Rank:</span>
+            <span>{infoData?.rank}</span>
+          </RankBox>
         </Header>
         {loading ? (
           <Loader>Loading...</Loader>
@@ -202,19 +266,18 @@ function Coin() {
           <>
             <Overview>
               <OverviewItem>
-                <span>Rank:</span>
-                <span>{infoData?.rank}</span>
+                <span>PRICE(KRW):</span>
+                <span>${tickersData?.quotes.USD.price}</span>
               </OverviewItem>
               <OverviewItem>
-                <span>Symbol:</span>
-                <span>${infoData?.symbol}</span>
-              </OverviewItem>
-              <OverviewItem>
-                <span>Open Source:</span>
-                <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                <span>percent_change_24h:</span>
+                <span>{tickersData?.quotes.USD.percent_change_24h}</span>
               </OverviewItem>
             </Overview>
-            <Description>{infoData?.description}</Description>
+            <Description>
+              <span>Description</span>
+              {infoData?.description}
+            </Description>
             <Overview>
               <OverviewItem>
                 <span>Total Suply:</span>
@@ -225,6 +288,62 @@ function Coin() {
                 <span>{tickersData?.max_supply}</span>
               </OverviewItem>
             </Overview>
+
+            <Reference>
+              <span>Reference Link</span>
+              <div>
+              <FontAwesomeIcon icon={faReddit} />
+              <FontAwesomeIcon icon={faFacebook} />
+              <FontAwesomeIcon icon={faYoutube} />
+                <RefLink
+                  target="_blank"
+                  iconColor="#171515"
+                  isHref={infoData?.links.source_code}
+                  href={infoData?.links.source_code}
+                >
+                  <div>
+                    <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
+                    <span>Github</span>
+                  </div>
+                </RefLink>
+                <RefLink
+                  target="_blank"
+                  iconColor="#FF4500"
+                  isHref={infoData?.links.reddit}
+                  href={infoData?.links.reddit}
+                >
+                  <div>
+                    <i className="fa-brands fa-reddit fa-lg"></i>
+                    <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
+                    <span>Reddit</span>
+                  </div>
+                </RefLink>
+                <RefLink
+                  target="_blank"
+                  iconColor="#FE0000"
+                  isHref={infoData?.links.youtube}
+                  href={infoData?.links.youtube}
+                >
+                  <div>
+                    <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
+                    <i className="fa-brands fa-youtube fa-lg"></i>
+                    <span>Youtube</span>
+                  </div>
+                </RefLink>
+                <RefLink
+                  target="_blank"
+                  iconColor="#1877F2"
+                  isHref={infoData?.links.facebook}
+                  href={infoData?.links.facebook}
+                >
+                  <div>
+                    <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
+                    <i className="fa-brands fa-facebook fa-lg"></i>
+                    <span>Facebook</span>
+                  </div>
+                </RefLink>
+              </div>
+            </Reference>
 
             <Tabs>
               <Tab isActive={priceMatch !== null}>
