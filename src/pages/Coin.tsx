@@ -31,7 +31,6 @@ const AppContainer = styled.div`
 
 const ContWrap = styled.div`
   overflow-y: auto;
-  height: calc(600px - 15vh);
 `;
 
 const Header = styled.header`
@@ -42,7 +41,7 @@ const Header = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bolder;
   text-transform: uppercase;
   color: ${(props) => props.theme.accentColor};
@@ -65,7 +64,6 @@ const RankBox = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   width: 4rem;
   height: 4rem;
-  padding: 10px;
   border-radius: 50%;
 `;
 
@@ -75,6 +73,7 @@ const Overview = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 10px;
+  margin-bottom: 1rem;
 `;
 
 const OverviewItem = styled.div`
@@ -292,10 +291,12 @@ function Coin() {
                 <span>{tickersData?.quotes.USD.percent_change_24h}</span>
               </OverviewItem>
             </Overview>
-            <Description>
-              <span>Description</span>
-              {infoData?.description}
-            </Description>
+            <Overview>
+              <Description>
+                <span>Description</span>
+                {infoData?.description}
+              </Description>
+            </Overview>
             <Overview>
               <OverviewItem>
                 <span>Total Suply:</span>
