@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { faFacebook, faGithub, faReddit, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import { theme } from '../theme';
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +20,7 @@ const Container = styled.div`
 `;
 
 const AppContainer = styled.div`
-  padding: 0px 20px;
+  padding: 20px;
   width: 100%;
   min-width: 300px;
   min-height: 600px;
@@ -33,19 +35,47 @@ const ContWrap = styled.div`
   overflow-y: auto;
 `;
 
-const Header = styled.header`
-  height: 15vh;
+const Nav = styled.div`
+  height: 5vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
+`;
+
+const BtnToHome = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${(props) => props.theme.grayText};
+`;
+
+const Header = styled.header`
 `;
 
 const TitleWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+const TitleLogoCont = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+const TitleContWrap = styled.div`
   
 `;
 
 const TitleCont = styled.div`
-  
+  margin-bottom: 5px;
+  span {
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
 `;
 
 const Title = styled.h1`
@@ -58,9 +88,11 @@ const Title = styled.h1`
 const Percent24h = styled.span<IPercent24h>`
   color: ${(props) =>
     props.percent24h && props.percent24h >= 0 ? "#DA5157" : "#4880EE"};
+  font-size: 15px !important;
   font-weight: 600;
   span {
-    color: ${(props) => props.theme.grayText};
+    color: ${(props) => props.theme.textColor};
+    font-size: 15px !important;
     font-weight: normal;
     margin-left: 5px;
   }
@@ -78,12 +110,22 @@ const Description = styled.p`
 
 const RankBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  width: 4rem;
-  height: 4rem;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  span {
+    font-size: 14px;
+    font-weight: bolder;
+  }
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
 `;
 
 const Overview = styled.div`
@@ -100,7 +142,7 @@ const OverviewItem = styled.div`
   flex-direction: column;
   align-items: center;
   span:first-child {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -179,8 +221,8 @@ const IconBox = styled.div`
 `;
 
 const Img = styled.img`
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     margin-right: 1rem;
 `;
 
@@ -298,34 +340,45 @@ function Coin() {
     <Container>
       <AppContainer>
 
+        <Nav>
+          <BtnToHome>
+            <Link to={"/"}>
+              <FontAwesomeIcon icon={faAngleLeft} style={{ color: theme.pointColor }}/>
+              <span style={{ color: theme.pointColor, marginLeft : "0.5rem" }}>Go To Home</span>
+            </Link>
+          </BtnToHome>
+        </Nav>
+
         <Header>
-          <TitleWrap>
+          <TitleLogoCont>
             <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}/>
             <Title>
                 {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
             </Title>
-            <TitleCont>
-              <span>PRICE(KRW):</span>
-              <span>${tickersData?.quotes.USD.price.toFixed(2).toLocaleString()}</span>
-            </TitleCont>
-            <TitleCont>
-              <span>percent_change_24h:</span>
-              <span>{tickersData?.quotes.USD.percent_change_24h}</span>
-              <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
-                {tickersData?.quotes.USD.price && tickersData?.quotes.USD.percent_change_24h
-                  ? tickersData?.quotes.USD.percent_change_24h >= 0
-                    ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
-                    : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
-                  : undefined}{" "}
-                ({tickersData?.quotes.USD.percent_change_24h}%) <span>24h ago</span>
-              </Percent24h>
-            </TitleCont>
+          </TitleLogoCont>
 
+          <TitleWrap>
+            <TitleContWrap>
+              <TitleCont>
+                <span>${tickersData?.quotes.USD.price.toFixed(2).toLocaleString()}</span>
+              </TitleCont>
+              <TitleCont>
+                <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
+                  {tickersData?.quotes.USD.price && tickersData?.quotes.USD.percent_change_24h
+                    ? tickersData?.quotes.USD.percent_change_24h >= 0
+                      ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                      : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                    : undefined}{" "}
+                  ({tickersData?.quotes.USD.percent_change_24h}%) <span>24h ago</span>
+                </Percent24h>
+              </TitleCont>
+            </TitleContWrap>
+
+            <RankBox>
+              <span>Rank</span>
+              <span>{infoData?.rank}</span>
+            </RankBox>
           </TitleWrap>
-          <RankBox>
-            <span>Rank</span>
-            <span>{infoData?.rank}</span>
-          </RankBox>
         </Header>
 
         {loading ? (
@@ -334,7 +387,7 @@ function Coin() {
           <ContWrap>
             <Overview>
               <OverviewItem>
-                <span>PRICE(KRW):</span>
+                <span>Price(KRW):</span>
                 <span>${tickersData?.quotes.USD.price}</span>
               </OverviewItem>
               <OverviewItem>
