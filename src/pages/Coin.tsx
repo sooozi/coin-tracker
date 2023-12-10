@@ -292,7 +292,7 @@ function Coin() {
             <Reference>
               <span>Reference Link</span>
               <div>
-              <FontAwesomeIcon icon={faReddit} />
+              <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }} />
               <FontAwesomeIcon icon={faFacebook} />
               <FontAwesomeIcon icon={faYoutube} />
                 <RefLink
