@@ -41,7 +41,7 @@ const Nav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
 `;
 
 const BtnToHome = styled.button`
@@ -71,7 +71,7 @@ const TitleContWrap = styled.div`
 `;
 
 const TitleCont = styled.div`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   span {
     font-size: 18px;
     font-weight: 400;
@@ -356,7 +356,7 @@ function Coin() {
             <TitleWrap>
               <TitleContWrap>
                 <TitleCont>
-                  <span>${tickersData?.quotes.USD.price.toFixed(2).toLocaleString()}</span>
+                  <span>${tickersData?.quotes.USD.price.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
                 </TitleCont>
                 <TitleCont>
                   <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
