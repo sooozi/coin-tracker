@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { faFacebook, faGithub, faReddit, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
-import { theme } from '../theme';
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Container = styled.div`
   display: flex;
@@ -34,23 +34,6 @@ const AppContainer = styled.div`
 const ContWrap = styled.div`
   overflow-y: auto;
   height: calc(600px - 20vh);
-`;
-
-const Nav = styled.div`
-  height: 5vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: .5rem;
-`;
-
-const BtnToHome = styled.button`
-  background-color: transparent;
-  border: none;
-  color: ${(props) => props.theme.grayText};
-`;
-
-const Header = styled.header`
 `;
 
 const TitleWrap = styled.div`
@@ -317,24 +300,16 @@ function Coin() {
     <Container>
       <AppContainer>
 
-        <Nav>
-          <BtnToHome>
-            <Link to={`/coin-tracker`}>
-              <FontAwesomeIcon icon={faAngleLeft} style={{ color: theme.pointColor }}/>
-              <span style={{ color: theme.pointColor, marginLeft : "0.5rem" }}>Go To Home</span>
-            </Link>
-          </BtnToHome>
-        </Nav>
+        <Header />
 
-        <Header>
+        <div>
           <TitleLogoCont>
             <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}/>
             <Title>
                 {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
             </Title>
           </TitleLogoCont>
-
-        </Header>
+        </div>
 
         {loading ? (
           <Loader>Loading...</Loader>
@@ -448,6 +423,8 @@ function Coin() {
             </ContWrap>
           </>
         )}
+
+        <Footer />
       </AppContainer>
     </Container>
   );
