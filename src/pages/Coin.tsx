@@ -95,21 +95,33 @@ const Description = styled.p`
 
 const RankBox = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  position: relative;
   span {
     font-size: 14px;
     font-weight: bolder;
   }
-  span:first-child {
+  &:hover {
+      &::after {
+        top: -15px;
+        opacity: 1;
+      }
+  }
+  &::after {
+    content: "Rank";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 10px;
     font-weight: 400;
-    margin-bottom: 5px;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
   }
 `;
 
@@ -312,7 +324,7 @@ function Coin() {
         </div>
 
         {loading ? (
-          <Loader>Loading...</Loader>
+          <Loader>Loading...💤</Loader>
         ) : (
           <>
             <TitleWrap>
@@ -333,7 +345,6 @@ function Coin() {
               </TitleContWrap>
 
               <RankBox>
-                <span>Rank</span>
                 <span>{infoData?.rank}</span>
               </RankBox>
             </TitleWrap>
@@ -356,7 +367,7 @@ function Coin() {
                   <Description>{infoData?.description}</Description>
                 </OverviewItem>
               </Overview>
-              
+
               <Overview>
                 <OverviewItem>
                   <span>Total Suply</span>
