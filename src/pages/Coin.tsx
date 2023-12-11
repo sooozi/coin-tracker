@@ -71,7 +71,7 @@ const TitleContWrap = styled.div`
 `;
 
 const TitleCont = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   span {
     font-size: 18px;
     font-weight: 400;
@@ -83,6 +83,7 @@ const Title = styled.h1`
   font-size: 1.8rem;
   font-weight: bolder;
   text-transform: uppercase;
+  margin-bottom: 1px;
   color: ${(props) => props.theme.accentColor};
 `;
 
@@ -93,9 +94,9 @@ const Percent24h = styled.span<IPercent24h>`
   font-weight: 600;
   span {
     color: ${(props) => props.theme.textColor};
-    font-size: 15px !important;
+    font-size: 10px !important;
     font-weight: normal;
-    margin-left: 5px;
+    margin-left: 2px;
   }
 `;
 
@@ -342,16 +343,16 @@ function Coin() {
             <TitleWrap>
               <TitleContWrap>
                 <TitleCont>
-                  <span>${tickersData?.quotes.USD.price.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
+                  <span>${tickersData?.quotes.USD.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </TitleCont>
                 <TitleCont>
                   <Percent24h percent24h={tickersData?.quotes.USD.percent_change_24h}>
                     {tickersData?.quotes.USD.price && tickersData?.quotes.USD.percent_change_24h
                       ? tickersData?.quotes.USD.percent_change_24h >= 0
-                        ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
-                        : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toFixed(2)}`
+                        ? `+$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        : `-$${((tickersData?.quotes.USD.price * Math.abs(tickersData?.quotes.USD.percent_change_24h)) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                       : undefined}{" "}
-                    ({tickersData?.quotes.USD.percent_change_24h}%) <span>24h ago</span>
+                    ({tickersData?.quotes.USD.percent_change_24h}%) <span className="txt_unit">24h ago</span>
                   </Percent24h>
                 </TitleCont>
               </TitleContWrap>
