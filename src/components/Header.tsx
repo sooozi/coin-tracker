@@ -20,7 +20,6 @@ const BtnToHome = styled.button`
             color: ${(props) => props.theme.accentColor};
         }
     }
-
 `;
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`

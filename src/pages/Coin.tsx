@@ -351,11 +351,12 @@ function Coin() {
               <Outlet/>
 
               <Overview>
+                <OverviewItem>
                   <span>Description</span>
-                  <Description>
-                    {infoData?.description}
-                  </Description>
+                  <Description>{infoData?.description}</Description>
+                </OverviewItem>
               </Overview>
+              
               <Overview>
                 <OverviewItem>
                   <span>Total Suply</span>
