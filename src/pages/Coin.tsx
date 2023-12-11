@@ -311,20 +311,6 @@ function Coin() {
   );
 
   const loading = infoLoading || tickersLoading;
-  
-//   useEffect(() => {
-//     (async() => {
-//         const infoData = await (
-//             await fetch(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`)
-//         ).json();
-//         const priceData = await (
-//             await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-//         ).json();
-//         setInfo(infoData);
-//         setPriceInfo(priceData);
-//         setLoading(false);
-//     })();
-// }, [coinId]);
 
   return (
     <Container>
