@@ -26,7 +26,7 @@ const AppContainer = styled.div`
   background-color: ${(props) => props.theme.bgColor};
 `;
 
-const Header = styled.header`
+const Header = styled.div`
   height: 12vh;
   display: flex;
   align-items: center;
