@@ -14,13 +14,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  max-width: 20rem;
+  max-width: 22rem;
   margin: 0 auto;
   padding: 20px;
 `;
 
 const AppContainer = styled.div`
-  padding: 20px;
+  padding: 20px 10px 20px 15px;
   width: 100%;
   min-width: 300px;
   min-height: 600px;
@@ -34,6 +34,7 @@ const AppContainer = styled.div`
 const ContWrap = styled.div`
   overflow-y: auto;
   height: calc(600px - 20vh);
+  padding-right: 10px;
 `;
 
 const TitleWrap = styled.div`
@@ -54,7 +55,7 @@ const TitleContWrap = styled.div`
 `;
 
 const TitleCont = styled.div`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   span {
     font-size: 18px;
     font-weight: 400;
@@ -98,8 +99,8 @@ const RankBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   position: relative;
   span {
@@ -129,7 +130,7 @@ const Overview = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
+  padding: 20px;
   border-radius: 10px;
   margin-bottom: 1rem;
 `;
@@ -138,13 +139,27 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  &.no_flex {
+    display: block;
+    span {
+      display: block;
+    }
+    .txt_tit {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .txt_desc {
+      line-height: 1.5;
+    }
+  }
   span {
     font-size: 12px;
   }
   span:first-child {
     font-size: 12px;
     font-weight: 400;
-    text-transform: uppercase;
     margin-bottom: 5px;
   }
 `;
@@ -362,9 +377,9 @@ function Coin() {
               <Outlet/>
 
               <Overview>
-                <OverviewItem>
-                  <span>Description</span>
-                  <Description>{infoData?.description}</Description>
+                <OverviewItem className="no_flex">
+                  <span className="txt_tit">Description</span>
+                  <span className="txt_desc">{infoData?.description}</span>
                 </OverviewItem>
               </Overview>
 
@@ -380,57 +395,59 @@ function Coin() {
               </Overview>
 
               <Overview>
-                <span>Reference Link</span>
-                <div>
-                  <RefLink
-                    target="_blank"
-                    isHref={infoData?.links.source_code}
-                    href={infoData?.links.source_code}
-                  >
-                    <div>
-                      <IconBox>
-                        <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
-                      </IconBox>
-                      <span>Github</span>
-                    </div>
-                  </RefLink>
-                  <RefLink
-                    target="_blank"
-                    isHref={infoData?.links.reddit}
-                    href={infoData?.links.reddit}
-                  >
-                    <div>
-                      <IconBox>
-                        <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
-                      </IconBox>
-                      <span>Reddit</span>
-                    </div>
-                  </RefLink>
-                  <RefLink
-                    target="_blank"
-                    isHref={infoData?.links.youtube}
-                    href={infoData?.links.youtube}
-                  >
-                    <div>
-                      <IconBox>
-                        <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
-                      </IconBox>
-                      <span>Youtube</span>
-                    </div>
-                  </RefLink>
-                  <RefLink
-                    target="_blank"
-                    isHref={infoData?.links.facebook}
-                    href={infoData?.links.facebook}
-                  >
-                    <div>
-                      <IconBox> 
-                        <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
-                      </IconBox>
-                      <span>Facebook</span>
-                    </div>
-                  </RefLink>
-                </div>
+                <OverviewItem className="no_flex">
+                  <span className="txt_tit">Reference Link</span>
+                  <div>
+                    <RefLink
+                      target="_blank"
+                      isHref={infoData?.links.source_code}
+                      href={infoData?.links.source_code}
+                    >
+                      <div>
+                        <IconBox>
+                          <FontAwesomeIcon icon={faGithub} style={{ color: '#171515' }}/>
+                        </IconBox>
+                        <span>Github</span>
+                      </div>
+                    </RefLink>
+                    <RefLink
+                      target="_blank"
+                      isHref={infoData?.links.reddit}
+                      href={infoData?.links.reddit}
+                    >
+                      <div>
+                        <IconBox>
+                          <FontAwesomeIcon icon={faReddit} style={{ color: '#FF4500' }}/>
+                        </IconBox>
+                        <span>Reddit</span>
+                      </div>
+                    </RefLink>
+                    <RefLink
+                      target="_blank"
+                      isHref={infoData?.links.youtube}
+                      href={infoData?.links.youtube}
+                    >
+                      <div>
+                        <IconBox>
+                          <FontAwesomeIcon icon={faYoutube} style={{ color: '#FE0000' }} />
+                        </IconBox>
+                        <span>Youtube</span>
+                      </div>
+                    </RefLink>
+                    <RefLink
+                      target="_blank"
+                      isHref={infoData?.links.facebook}
+                      href={infoData?.links.facebook}
+                    >
+                      <div>
+                        <IconBox> 
+                          <FontAwesomeIcon icon={faFacebook} style={{ color: '#1877F2' }} />
+                        </IconBox>
+                        <span>Facebook</span>
+                      </div>
+                    </RefLink>
+                  </div>
+                </OverviewItem>
               </Overview>
             </ContWrap>
           </>

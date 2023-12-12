@@ -9,13 +9,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  max-width: 20rem;
+  max-width: 22rem;
   margin: 0 auto;
   padding: 20px;
 `;
 
 const AppContainer = styled.div`
-  padding: 0px 20px;
+  padding: 0px 15px;
   width: 100%;
   min-width: 300px;
   min-height: 600px;
@@ -45,7 +45,7 @@ const Coin = styled.li`
     align-items: center;
     border-radius: 15px;
     color: ${props => props.theme.textColor};
-    padding: 20px 10px;
+    padding: 17px 10px;
     transition: color 0.2s ease-in;
   }
   &:hover {
@@ -57,9 +57,8 @@ const Coin = styled.li`
 `;
 
 const Title = styled.h1`
-  font-size: clamp(1.3rem, 1.8vw, 2.5rem);
+  font-size: clamp(13px, 2rem, 20px);
   color: ${(props) => props.theme.accentColor};
-  text-transform: uppercase;
   font-weight: bold;
 `;
 
@@ -96,7 +95,7 @@ function Coins() {
       <AppContainer>
         <Header>
           <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
-          <Title>Coin Tracker</Title>
+          <Title>COIN Tracker</Title>
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (
