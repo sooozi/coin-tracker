@@ -11,7 +11,7 @@ function AppRouter() {
         <Route path="/coin-tracker" element={<Coins />} />
         <Route path="/coin-tracker/:coinId" element={<Coin />}>
           <Route path="price" element={<Price />} />
-          <Route path="chart" element={<Chart />} />
+          <Route path="chart" element={<Chart coinId={''} />} />
         </Route>
       </Routes>
     </BrowserRouter>
