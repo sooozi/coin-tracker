@@ -319,11 +319,11 @@ function Coin() {
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
-    () => fetchCoinInfo(coinId)
+    () => fetchCoinInfo(`${coinId}`)
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId)
+    () => fetchCoinTickers(`${coinId}`)
   );
 
   const loading = infoLoading || tickersLoading;
@@ -379,7 +379,7 @@ function Coin() {
                 </Tab>
               </Tabs>
 
-              <Outlet/>
+              <Outlet context={coinId}/>
 
               <Overview>
                 <OverviewItem className="no_flex">
