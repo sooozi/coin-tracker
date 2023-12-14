@@ -18,7 +18,7 @@ function Chart() {
       {loading ? (
               <>Loading...💤</>
             ) : (
-              <>Charttt</>
+              <>Charttt${coinId}</>
             )
       } 
     </>
