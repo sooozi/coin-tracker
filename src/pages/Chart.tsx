@@ -61,6 +61,18 @@ function Chart() {
               axisBorder: { show: false },
               axisTicks: { show: false },
               labels: { show: false },
+              type: "datetime",
+              categories: Array.isArray(data) ? data?.map((price) => new Date(Number(price.time_close) * 1000).toUTCString()) ?? [] : [],
+            },
+            fill:{
+              type: "gradient",
+              gradient: { gradientToColors: ["blue"], stops: [0, 100]},
+            },
+            colors: ["red"],
+            tooltip: {
+              y: {
+                formatter: (value) => `${value.toFixed(2)}`,
+              }
             },
           }}
         />

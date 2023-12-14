@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { faFacebook, faGithub, faReddit, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
@@ -323,13 +324,21 @@ function Coin() {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(`${coinId}`)
+    () => fetchCoinTickers(`${coinId}`),
+    {
+      //해당 query를 5초마다 refetch한다.
+      refetchInterval: 5000,
+    }
   );
 
   const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
+      <Helmet >
+        <title>COIN Tracker</title>
+      </Helmet>
+      
       <AppContainer>
 
         <Header />
