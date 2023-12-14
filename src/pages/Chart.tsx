@@ -1,10 +1,9 @@
+import ApexChart from "react-apexcharts";
 import { useQuery } from "react-query";
 import { useOutletContext } from "react-router-dom";
 import { fetchCoinHistory } from "../api";
 
-interface ChartPropsData {
-  coinId : string
-}
+
 interface IHistorical {
   time_open: string;
   time_close: string;
@@ -24,8 +23,49 @@ function Chart() {
 
 
   return (
-        <>Charttt${coinId}</>
-      
+    <div>
+      {isLoading ? (
+        "Loading chart..."
+      ) : (
+        <ApexChart
+          type="line"
+          series={[
+            {
+              name: "Price",
+              data: Array.isArray(data)
+              ? data?.map((price) => parseFloat(price.close)) ?? []
+              : [],
+            },
+          ]}
+          options={{
+            theme: {
+              mode: "dark",
+            },
+            chart: {
+              height: 300,
+              width: 500,
+              toolbar: {
+                show: false,
+              },
+              background: "transparent",
+            },
+            grid: { show: false },
+            stroke: {
+              curve: "smooth",
+              width: 4,
+            },
+            yaxis: {
+              show: false,
+            },
+            xaxis: {
+              axisBorder: { show: false },
+              axisTicks: { show: false },
+              labels: { show: false },
+            },
+          }}
+        />
+      )}
+    </div>
   );
 }
 
