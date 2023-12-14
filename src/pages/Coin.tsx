@@ -231,6 +231,14 @@ interface IPercent24h {
   percent24h: number | undefined;
 }
 
+interface RouteParams {
+  coinId: string;
+  }
+  interface RouteState {
+  state : {name: string}
+  }
+
+
 interface LocationState {
   state: {
     name: string;
@@ -303,7 +311,7 @@ interface Ireficon {
 }
 
 function Coin() {
-  const { coinId } = useParams();
+  const { coinId } = useParams< {coinId:string} >();
   const { state } = useLocation() as LocationState;
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<InfoData>();
@@ -315,10 +323,7 @@ function Coin() {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId),
-    {
-      refetchInterval: 5000
-    }
+    () => fetchCoinTickers(coinId)
   );
 
   const loading = infoLoading || tickersLoading;
