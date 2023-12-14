@@ -34,7 +34,7 @@ const AppContainer = styled.div`
 
 const ContWrap = styled.div`
   overflow-y: auto;
-  height: calc(600px - 20vh);
+  height: calc(600px - 30vh);
   padding-right: 10px;
 `;
 
@@ -43,6 +43,7 @@ const TitleWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  padding-right: 10px;
 `;
 
 const TitleLogoCont = styled.div`
@@ -52,7 +53,7 @@ const TitleLogoCont = styled.div`
 `;
 
 const TitleContWrap = styled.div`
-  
+    
 `;
 
 const TitleCont = styled.div`
@@ -65,7 +66,7 @@ const TitleCont = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: bolder;
   text-transform: uppercase;
   margin-bottom: 1px;
@@ -190,7 +191,7 @@ const Tab = styled.span<{ isActive: boolean }>`
 const RefLink = styled.a<Ireficon>`
   display: ${(props) => (props.isHref ? "block" : "none")};
   background-color: ${(props) => props.theme.grayDiv};
-  padding: 10px;
+  padding: 10px 0;
   border-radius: 10px;
   margin-bottom: 10px;
   :hover {
@@ -199,11 +200,15 @@ const RefLink = styled.a<Ireficon>`
   i {
     margin-right: 8px;
   }
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  > div {
+      display: flex;
+      align-items: center;
+      > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   span {
     color: ${(props) => props.theme.textColor};
     font-size: 16px;
