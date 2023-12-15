@@ -1,35 +1,48 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "react-query";
 import { useOutletContext } from "react-router-dom";
+import styled from "styled-components";
 import { fetchCoinHistory } from "../api";
 
+const Container = styled.div`
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+`;
 
-interface IHistorical {
-    time_open: string;
-    time_close: string;
-    open: number;
-    high: number;
-    low: number;
-    close: number;
-    volume: number;
-    market_cap: number;
-  }
+
+
+interface IPriceProps {
+    percent_change_1h: number;
+}
 
 function Price() {
-    const coinId = useOutletContext();
-    const { isLoading : iHistoricalLoading, data : iHistorical } = useQuery<IHistorical>(
+    const coinId =useOutletContext();
+    // useQuery<IPriceProps>(["ohlcv", coinId], () => fetchCoinHistory(`${coinId}`)
+    // );
+    const { isLoading: IPriceLoading, data: IPriceData } = useQuery<IPriceProps>(
         ["ohlcv", coinId],
         () => fetchCoinHistory(`${coinId}`)
-    );
+      );
 
-    const loading = iHistoricalLoading;
+      const loading = IPriceLoading;
 
-    return (
-        <>
-            {loading ? (
-            "Loading Price..."
-            ) : (<h1>{iHistorical?.volume}</h1>)}
-        </>
-    );
+  return (
+    <Container>
+        {loading ? (
+          <>Loading...💤</>
+        ) : (
+            <>
+                <span>price</span>
+                <>
+                <span>Price Change (1 hour): {IPriceData?.percent_change_1h}</span>
+                </>
+            </>
+        )}
+    </Container>
+  );
 }
   
 

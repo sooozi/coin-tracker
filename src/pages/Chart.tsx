@@ -21,7 +21,6 @@ function Chart() {
     fetchCoinHistory(`${coinId}`)
   );
 
-
   return (
     <div>
       {isLoading ? (

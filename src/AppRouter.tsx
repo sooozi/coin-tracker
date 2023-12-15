@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Chart from "./pages/Chart";
 import Coin from "./pages/Coin";
 import Coins from "./pages/Coins";
-import Price from "./pages/Price";
+import Price from './pages/Price';
 
 function AppRouter() {
   return (
@@ -17,5 +17,4 @@ function AppRouter() {
     </BrowserRouter>
   );
 }
-
 export default AppRouter;

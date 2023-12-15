@@ -239,10 +239,11 @@ interface IPercent24h {
 
 interface RouteParams {
   coinId: string;
-  }
-  interface RouteState {
+}
+
+interface RouteState {
   state : {name: string}
-  }
+}
 
 
 interface LocationState {
