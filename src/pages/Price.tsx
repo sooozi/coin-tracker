@@ -26,7 +26,7 @@ function Price() {
     return (
         <>
             {loading ? (
-            "Loading chart..."
+            "Loading Price..."
             ) : (<h1>{iHistorical?.volume}</h1>)}
         </>
     );
