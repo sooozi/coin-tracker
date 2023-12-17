@@ -70,7 +70,7 @@ function Chart() {
             colors: ["rgb(99, 89, 236)"],
             tooltip: {
               y: {
-                formatter: (value) => `${value.toFixed(2)}`,
+                formatter: (value) => `${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
               }
             },
           }}

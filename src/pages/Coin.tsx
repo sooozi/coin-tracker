@@ -128,6 +128,10 @@ const RankBox = styled.div`
   }
 `;
 
+const OutletWrap = styled.div`
+  margin-bottom: 1rem;
+`;
+
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
@@ -394,7 +398,9 @@ function Coin() {
                 </Tab>
               </Tabs>
 
-              <Outlet context={coinId}/>
+              <OutletWrap>
+                <Outlet context={coinId}/>
+              </OutletWrap>
 
               <Overview>
                 <OverviewItem className="no_flex">
