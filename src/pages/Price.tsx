@@ -15,7 +15,27 @@ const Container = styled.div`
 
 
 interface IPriceProps {
-    percent_change_1h: number;
+  quotes: {
+    USD: {
+        price: number; // 현재 시세
+        ath_date: string;
+        ath_price: number;
+        market_cap: number;
+        market_cap_change_24h: number; // 시총 가격 변동률
+        percent_change_1h: number;
+        percent_change_6h: number;
+        percent_change_12h: number;
+        percent_change_24h: number;
+        percent_change_7d: number;
+        percent_change_30d: number;
+        percent_change_15m: number;
+        percent_change_30m: number;
+        percent_change_1y: number;
+        percent_from_price_ath: number;
+        volume_24h: number; // 지난 24시간 거래량
+        volume_24h_change_24h: number; // 지난 24시간 거래 변동률
+      };
+  };
 }
 
 function Price() {
@@ -23,7 +43,7 @@ function Price() {
     // useQuery<IPriceProps>(["ohlcv", coinId], () => fetchCoinHistory(`${coinId}`)
     // );
     const { isLoading: IPriceLoading, data: IPriceData } = useQuery<IPriceProps>(
-        ["ohlcv", coinId],
+        ["tickers", coinId],
         () => fetchCoinHistory(`${coinId}`)
       );
 
@@ -37,7 +57,7 @@ function Price() {
             <>
                 <span>price</span>
                 <>
-                <span>Price Change (1 hour): {IPriceData?.percent_change_1h}</span>
+                <span>Price Change (1 hour): {IPriceData?.quotes.USD.percent_change_24h}</span>
                 </>
             </>
         )}
