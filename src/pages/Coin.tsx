@@ -201,6 +201,9 @@ const RefLink = styled.a<Ireficon>`
   :hover {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   }
+  &:last-child {
+    margin-bottom: 0;
+  }
   i {
     margin-right: 8px;
   }
@@ -248,7 +251,6 @@ interface RouteParams {
 interface RouteState {
   state : {name: string}
 }
-
 
 interface LocationState {
   state: {
@@ -412,11 +414,11 @@ function Coin() {
               <Overview>
                 <OverviewItem>
                   <span>Total Suply</span>
-                  <span>{tickersData?.total_supply}</span>
+                  <span>{tickersData?.total_supply.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </OverviewItem>
                 <OverviewItem>
                   <span>Max Supply</span>
-                  <span>{tickersData?.max_supply}</span>
+                  <span>{tickersData?.max_supply.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </OverviewItem>
               </Overview>
 
