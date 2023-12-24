@@ -3,7 +3,7 @@
 import { useQuery } from "react-query";
 import { useOutletContext } from "react-router-dom";
 import styled from "styled-components";
-import { fetchCoinHistory } from "../api";
+import { fetchCoinInfo } from "../api";
 
 const Container = styled.div`
   display: grid;
@@ -83,11 +83,9 @@ interface IPriceProps {
 
 function Price() {
     const coinId =useOutletContext();
-    // useQuery<IPriceProps>(["ohlcv", coinId], () => fetchCoinHistory(`${coinId}`)
-    // );
     const { isLoading: IPriceLoading, data: IPriceData } = useQuery<IPriceProps>(
         ["tickers", coinId],
-        () => fetchCoinHistory(`${coinId}`)
+        () => fetchCoinInfo(`${coinId}`)
       );
 
       const loading = IPriceLoading;
