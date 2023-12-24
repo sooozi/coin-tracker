@@ -3,7 +3,7 @@
 import { useQuery } from "react-query";
 import { useOutletContext } from "react-router-dom";
 import styled from "styled-components";
-import { fetchCoinInfo } from "../api";
+import { fetchCoinTickers } from "../api";
 
 const Container = styled.div`
   display: grid;
@@ -85,7 +85,7 @@ function Price() {
     const coinId =useOutletContext();
     const { isLoading: IPriceLoading, data: IPriceData } = useQuery<IPriceProps>(
         ["tickers", coinId],
-        () => fetchCoinInfo(`${coinId}`)
+        () => fetchCoinTickers(`${coinId}`)
       );
 
       const loading = IPriceLoading;

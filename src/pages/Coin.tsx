@@ -53,7 +53,6 @@ const TitleLogoCont = styled.div`
 `;
 
 const TitleContWrap = styled.div`
-    
 `;
 
 const TitleCont = styled.div`
@@ -89,11 +88,6 @@ const Percent24h = styled.span<IPercent24h>`
 const Loader = styled.span`
   display: block;
   text-align: center;
-`;
-
-const Description = styled.p`
-  margin: 2rem 0px;
-  line-height: 1.34;
 `;
 
 const RankBox = styled.div`
@@ -173,7 +167,7 @@ const OverviewItem = styled.div`
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 0 0 25px;
+  margin: 0 0 20px;
   gap: 10px;
 `;
 
