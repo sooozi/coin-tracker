@@ -53,38 +53,47 @@ const OverviewItem = styled.div`
   }
 `;
 
+const PercentBox = styled.div<{ percent: number | undefined }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: ${(props) =>
+    props.percent
+      ? props.percent > 0
+        ? "rgb(218, 81, 87)"
+        : props.percent < 0
+        ? "rgb(72, 128, 238)"
+        : "#000"
+      : "none"};
+`;
+
+const ArrowIcon = styled.i`
+  color: inherit; 
+`;
+
+
 interface IPriceProps {
   quotes: {
     USD: {
-        price: number; // 현재 시세
-        ath_date: string;
-        ath_price: number;
-        market_cap: number;
-        market_cap_change_24h: number; // 시총 가격 변동률
         percent_change_1h: number;
-        percent_change_6h: number;
         percent_change_12h: number;
         percent_change_24h: number;
         percent_change_7d: number;
         percent_change_30d: number;
-        percent_change_15m: number;
-        percent_change_30m: number;
         percent_change_1y: number;
-        percent_from_price_ath: number;
-        volume_24h: number; // 지난 24시간 거래량
-        volume_24h_change_24h: number; // 지난 24시간 거래 변동률
       };
   };
 }
 
 function Price() {
-    const coinId =useOutletContext();
+    const coinId = useOutletContext();
     const { isLoading: IPriceLoading, data: IPriceData } = useQuery<IPriceProps>(
         ["tickers", coinId],
         () => fetchCoinTickers(`${coinId}`)
       );
 
-      const loading = IPriceLoading;
+    const loading = IPriceLoading;
+    const mql = matchMedia("screen and (min-width: 400px)");
 
   return (
     <Container>
@@ -96,42 +105,66 @@ function Price() {
               <Overview>
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 hour</span>
-                  <span className="txt_desc">{IPriceData?.quotes.USD.percent_change_1h}</span>
+                  <PercentBox percent={IPriceData?.quotes.USD.percent_change_1h}>
+                    <span className="txt_desc">
+                      {IPriceData?.quotes.USD.percent_change_1h}
+                    </span>
+                  </PercentBox>
                 </OverviewItem>
               </Overview>
 
               <Overview>
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 12 hour</span>
-                  <span className="txt_desc">{IPriceData?.quotes.USD.percent_change_12h}</span>
+                  <PercentBox percent={IPriceData?.quotes.USD.percent_change_12h}>
+                    <span className="txt_desc">
+                      {IPriceData?.quotes.USD.percent_change_12h}
+                    </span>
+                  </PercentBox>
                 </OverviewItem>
               </Overview>
               
               <Overview>
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 24 hour</span>
-                  <span className="txt_desc">{IPriceData?.quotes.USD.percent_change_24h}</span>
+                  <PercentBox percent={IPriceData?.quotes.USD.percent_change_24h}>
+                    <span className="txt_desc">
+                      {IPriceData?.quotes.USD.percent_change_24h}
+                    </span>
+                  </PercentBox>
                 </OverviewItem>
               </Overview>
 
               <Overview>
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 week</span>
-                  <span className="txt_desc">{IPriceData?.quotes.USD.percent_change_7d}</span>
+                  <PercentBox percent={IPriceData?.quotes.USD.percent_change_7d}>
+                    <span className="txt_desc">
+                      {IPriceData?.quotes.USD.percent_change_7d}
+                    </span>
+                  </PercentBox>
                 </OverviewItem>
               </Overview>
 
               <Overview>
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 month</span>
-                  <span className="txt_desc">{IPriceData?.quotes.USD.percent_change_30d}</span>
+                  <PercentBox percent={IPriceData?.quotes.USD.percent_change_30d}>
+                    <span className="txt_desc">
+                      {IPriceData?.quotes.USD.percent_change_30d}
+                    </span>
+                  </PercentBox>
                 </OverviewItem>
               </Overview>
               
               <Overview>
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 year</span>
-                  <span className="txt_desc">{IPriceData?.quotes.USD.percent_change_1y}</span>
+                  <PercentBox percent={IPriceData?.quotes.USD.percent_change_1y}>
+                    <span className="txt_desc">
+                      {IPriceData?.quotes.USD.percent_change_1y}
+                    </span>
+                  </PercentBox>
                 </OverviewItem>
               </Overview>
 
