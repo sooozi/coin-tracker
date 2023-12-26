@@ -58,8 +58,8 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     background: linear-gradient(45deg, #b7adf8, #bfd8f1, #ffcdcd, #d0c9ff);
     background-size: 400% 400%;
-    -webkit-animation: gradientBG 60s ease infinite forwards;
-    animation: gradientBG 60s ease infinite forwards;
+    -webkit-animation: gradientBG 30s ease infinite forwards;
+    animation: gradientBG 30s ease infinite forwards;
   }
 
   @-webkit-keyframes gradientBG {
