@@ -41,6 +41,7 @@ const OverviewItem = styled.div`
     }
     .txt_desc {
       line-height: 1.5;
+      margin: 0;
     }
   }
   span {
@@ -56,7 +57,6 @@ const OverviewItem = styled.div`
 const PercentBox = styled.div<{ percent: number | undefined }>`
   display: flex;
   align-items: center;
-  justify-content: space-around;
   color: ${(props) =>
     props.percent
       ? props.percent > 0
@@ -65,6 +65,15 @@ const PercentBox = styled.div<{ percent: number | undefined }>`
         ? "rgb(72, 128, 238)"
         : "#000"
       : "none"};
+  i {
+      font-size: 15px;
+      margin-left: 6px;
+      display: inline-block;
+    }
+`;
+
+const Percent = styled.span`
+  margin: 0 !important;
 `;
 
 const ArrowIcon = styled.i`
@@ -106,9 +115,34 @@ function Price() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 hour</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_1h}>
-                    <span className="txt_desc">
-                      {IPriceData?.quotes.USD.percent_change_1h}
-                    </span>
+                    <Percent>
+                      {IPriceData?.quotes.USD.percent_change_1h && IPriceData?.quotes.USD.percent_change_1h > 0
+                        ? `+${IPriceData?.quotes.USD.percent_change_1h}%`
+                        : `${IPriceData?.quotes.USD.percent_change_1h}%`}
+                    </Percent>
+                    {IPriceData?.quotes.USD.percent_change_1h ? (
+                      IPriceData?.quotes.USD.percent_change_1h > 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
+                        )
+                      ) : IPriceData?.quotes.USD.percent_change_1h < 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-down fa-lg"></i>
+                        )
+                      ) : mql.matches ? (
+                        <i className="fa-solid fa-minus fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-minus fa-lg"></i>
+                      )
+                    ) : mql.matches ? (
+                      <i className="fa-solid fa-minus fa-2x"></i>
+                    ) : (
+                      <i className="fa-solid fa-minus fa-lg"></i>
+                    )}
                   </PercentBox>
                 </OverviewItem>
               </Overview>
@@ -117,9 +151,34 @@ function Price() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 12 hour</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_12h}>
-                    <span className="txt_desc">
-                      {IPriceData?.quotes.USD.percent_change_12h}
-                    </span>
+                    <Percent>
+                      {IPriceData?.quotes.USD.percent_change_12h && IPriceData?.quotes.USD.percent_change_12h > 0
+                        ? `+${IPriceData?.quotes.USD.percent_change_12h}%`
+                        : `${IPriceData?.quotes.USD.percent_change_12h}%`}
+                    </Percent>
+                    {IPriceData?.quotes.USD.percent_change_12h ? (
+                      IPriceData?.quotes.USD.percent_change_12h > 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
+                        )
+                      ) : IPriceData?.quotes.USD.percent_change_12h < 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-down fa-lg"></i>
+                        )
+                      ) : mql.matches ? (
+                        <i className="fa-solid fa-minus fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-minus fa-lg"></i>
+                      )
+                    ) : mql.matches ? (
+                      <i className="fa-solid fa-minus fa-2x"></i>
+                    ) : (
+                      <i className="fa-solid fa-minus fa-lg"></i>
+                    )}
                   </PercentBox>
                 </OverviewItem>
               </Overview>
@@ -128,9 +187,34 @@ function Price() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 24 hour</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_24h}>
-                    <span className="txt_desc">
-                      {IPriceData?.quotes.USD.percent_change_24h}
-                    </span>
+                    <Percent>
+                      {IPriceData?.quotes.USD.percent_change_24h && IPriceData?.quotes.USD.percent_change_24h > 0
+                        ? `+${IPriceData?.quotes.USD.percent_change_24h}%`
+                        : `${IPriceData?.quotes.USD.percent_change_24h}%`}
+                    </Percent>
+                    {IPriceData?.quotes.USD.percent_change_24h ? (
+                      IPriceData?.quotes.USD.percent_change_24h > 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
+                        )
+                      ) : IPriceData?.quotes.USD.percent_change_24h < 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-down fa-lg"></i>
+                        )
+                      ) : mql.matches ? (
+                        <i className="fa-solid fa-minus fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-minus fa-lg"></i>
+                      )
+                    ) : mql.matches ? (
+                      <i className="fa-solid fa-minus fa-2x"></i>
+                    ) : (
+                      <i className="fa-solid fa-minus fa-lg"></i>
+                    )}
                   </PercentBox>
                 </OverviewItem>
               </Overview>
@@ -139,9 +223,34 @@ function Price() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 week</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_7d}>
-                    <span className="txt_desc">
-                      {IPriceData?.quotes.USD.percent_change_7d}
-                    </span>
+                    <Percent>
+                      {IPriceData?.quotes.USD.percent_change_7d && IPriceData?.quotes.USD.percent_change_7d > 0
+                        ? `+${IPriceData?.quotes.USD.percent_change_7d}%`
+                        : `${IPriceData?.quotes.USD.percent_change_7d}%`}
+                    </Percent>
+                    {IPriceData?.quotes.USD.percent_change_7d ? (
+                      IPriceData?.quotes.USD.percent_change_7d > 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
+                        )
+                      ) : IPriceData?.quotes.USD.percent_change_7d < 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-down fa-lg"></i>
+                        )
+                      ) : mql.matches ? (
+                        <i className="fa-solid fa-minus fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-minus fa-lg"></i>
+                      )
+                    ) : mql.matches ? (
+                      <i className="fa-solid fa-minus fa-2x"></i>
+                    ) : (
+                      <i className="fa-solid fa-minus fa-lg"></i>
+                    )}
                   </PercentBox>
                 </OverviewItem>
               </Overview>
@@ -150,9 +259,34 @@ function Price() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 month</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_30d}>
-                    <span className="txt_desc">
-                      {IPriceData?.quotes.USD.percent_change_30d}
-                    </span>
+                    <Percent>
+                      {IPriceData?.quotes.USD.percent_change_30d && IPriceData?.quotes.USD.percent_change_30d > 0
+                        ? `+${IPriceData?.quotes.USD.percent_change_30d}%`
+                        : `${IPriceData?.quotes.USD.percent_change_30d}%`}
+                    </Percent>
+                    {IPriceData?.quotes.USD.percent_change_30d ? (
+                      IPriceData?.quotes.USD.percent_change_30d > 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
+                        )
+                      ) : IPriceData?.quotes.USD.percent_change_30d < 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-down fa-lg"></i>
+                        )
+                      ) : mql.matches ? (
+                        <i className="fa-solid fa-minus fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-minus fa-lg"></i>
+                      )
+                    ) : mql.matches ? (
+                      <i className="fa-solid fa-minus fa-2x"></i>
+                    ) : (
+                      <i className="fa-solid fa-minus fa-lg"></i>
+                    )}
                   </PercentBox>
                 </OverviewItem>
               </Overview>
@@ -161,14 +295,37 @@ function Price() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 1 year</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_1y}>
-                    <span className="txt_desc">
-                      {IPriceData?.quotes.USD.percent_change_1y}
-                    </span>
+                    <Percent>
+                      {IPriceData?.quotes.USD.percent_change_1y && IPriceData?.quotes.USD.percent_change_1y > 0
+                        ? `+${IPriceData?.quotes.USD.percent_change_1y}%`
+                        : `${IPriceData?.quotes.USD.percent_change_1y}%`}
+                    </Percent>
+                    {IPriceData?.quotes.USD.percent_change_1y ? (
+                      IPriceData?.quotes.USD.percent_change_1y > 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
+                        )
+                      ) : IPriceData?.quotes.USD.percent_change_1y < 0 ? (
+                        mql.matches ? (
+                          <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
+                        ) : (
+                          <i className="fa-solid fa-arrow-trend-down fa-lg"></i>
+                        )
+                      ) : mql.matches ? (
+                        <i className="fa-solid fa-minus fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-minus fa-lg"></i>
+                      )
+                    ) : mql.matches ? (
+                      <i className="fa-solid fa-minus fa-2x"></i>
+                    ) : (
+                      <i className="fa-solid fa-minus fa-lg"></i>
+                    )}
                   </PercentBox>
                 </OverviewItem>
               </Overview>
-
-
             </GridWrapper>
           </>
         )}

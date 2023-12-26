@@ -390,7 +390,7 @@ function Coin() {
                   <Link to={`/coin-tracker/${coinId}/Price`}>Price</Link>
                 </Tab>
                 <Tab isActive={chartMatch !== null}>
-                  <Link to={`/coin-tracker/${coinId}/Chart`}>Chart</Link>
+                  <Link to={`/coin-tracker/${coinId}/Chart`}>Line Chart</Link>
                 </Tab>
               </Tabs>
 
