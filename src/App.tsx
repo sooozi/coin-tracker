@@ -12,10 +12,9 @@ function App() {
   return ( 
     <div>
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-          <button onClick={toggleDark}>Toggle Mode</button>
           <GlobalStyle />
           <HelmetProvider >
-            <AppRouter />
+            <AppRouter toggleDark={toggleDark} />
           </HelmetProvider>
         </ThemeProvider>
     </div>
