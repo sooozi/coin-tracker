@@ -1,20 +1,20 @@
-import { useState } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { useRecoilValue } from "recoil";
 import { ThemeProvider } from 'styled-components';
 import AppRouter from './AppRouter';
+import { isDarkAtom } from "./atoms";
 import GlobalStyle from './style/GlobalStyle';
 import { darkTheme, lightTheme } from './theme';
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  const toggleDark = () => setIsDark((current) => !current);
+  const isDark = useRecoilValue(isDarkAtom);
 
   return ( 
     <div>
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
           <GlobalStyle />
           <HelmetProvider >
-            <AppRouter toggleDark={toggleDark} />
+            <AppRouter  />
           </HelmetProvider>
         </ThemeProvider>
     </div>

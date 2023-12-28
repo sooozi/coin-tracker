@@ -79,11 +79,7 @@ interface CoinInterface {
   type: string,
 }
 
-interface ICoinsProps {
-  toggleDark: () => void;
-}
-
-function Coins({toggleDark} : ICoinsProps) {
+function Coins() {
   // useQuery('allCoins', fetchCoins);
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
@@ -104,7 +100,6 @@ function Coins({toggleDark} : ICoinsProps) {
         <Header>
           <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
           <Title>COIN Tracker</Title>
-          <button onClick={toggleDark}>Toggle Mode</button>
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (
