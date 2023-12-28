@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isDarkAtom } from "../atoms";
 // import { fetchCoins } from "../api";
 
 const Container = styled.div`
@@ -81,6 +83,8 @@ interface CoinInterface {
 
 function Coins() {
   // useQuery('allCoins', fetchCoins);
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom(prev => !prev)
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -100,6 +104,7 @@ function Coins() {
         <Header>
           <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
           <Title>COIN Tracker</Title>
+          <button onClick={toggleDarkAtom}>Toggle Mode</button>
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (
