@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDarkAtom } from "../atoms";
+import ThemeButton from "../components/ThemeButton";
 // import { fetchCoins } from "../api";
 
 const Container = styled.div`
@@ -26,6 +27,7 @@ const AppContainer = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   overflow: hidden;
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const Header = styled.div`
@@ -103,7 +105,8 @@ function Coins() {
         <Header>
           <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
           <Title>COIN Tracker</Title>
-          <button onClick={toggleDarkAtom}>Toggle Mode</button>
+          <button className="btn_theme" onClick={toggleDarkAtom}>Toggle Mode</button>
+          <ThemeButton />
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>
         {coins.map((coin) => (

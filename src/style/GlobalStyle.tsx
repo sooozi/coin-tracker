@@ -91,14 +91,14 @@ const GlobalStyle = createGlobalStyle`
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background-color: #3d3c4560;
+    background-color: #524a8f5f;
     -webkit-border-radius: 10px;
     border-radius: 10px;
   } 
   ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #393749; 
+    background: #5e5a83; 
   }
   .main_logo {
     width: 40px;
