@@ -7,14 +7,16 @@ export const darkTheme: DefaultTheme = {
   // textColor: "rgb(42, 42, 44, 0.5)",
   pointColor: "rgb(99, 89, 236)",
   accentColor: "rgb(251, 251, 251)",
+  overviewBgColor: "rgba(0, 0, 0, 0.5)",
 };
 
 export const lightTheme: DefaultTheme = {
-  bgColor: "whitesmoke",
-  contBgColor: "#2c2a3a",
+  bgColor: "rgb(251, 251, 251)",
+  contBgColor: "rgba(99, 89, 236, 0.1)",
   textColor: "black",
   // textColor: "rgb(42, 42, 44, 0.5)",
-  pointColor: "#2c2a3a",
-  accentColor: "rgb(251, 251, 251)",
+  pointColor: "rgb(99, 89, 236)",
+  accentColor: "rgb(99, 89, 236)",
+  overviewBgColor: "rgba(208, 201, 255, 0.3)",
 };
 

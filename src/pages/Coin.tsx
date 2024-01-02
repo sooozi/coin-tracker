@@ -94,7 +94,7 @@ const RankBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.overviewBgColor};
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -129,7 +129,7 @@ const OutletWrap = styled.div`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.overviewBgColor};
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -176,7 +176,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.overviewBgColor};
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) => props.isActive ? props.theme.accentColor : props.theme.textColor};
