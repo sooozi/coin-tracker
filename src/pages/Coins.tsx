@@ -2,9 +2,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isDarkAtom } from "../atoms";
 import ThemeButton from "../components/ThemeButton";
 // import { fetchCoins } from "../api";
 
@@ -34,6 +32,7 @@ const Header = styled.div`
   height: 12vh;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-left: 10px;
 `;
 
@@ -84,8 +83,6 @@ interface CoinInterface {
 
 function Coins() {
   // useQuery('allCoins', fetchCoins);
-  const setDarkAtom = useSetRecoilState(isDarkAtom);
-  const toggleDarkAtom = () => setDarkAtom(prev => !prev)
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -103,9 +100,10 @@ function Coins() {
       </Helmet>
       <AppContainer>
         <Header>
-          <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
-          <Title>COIN Tracker</Title>
-          <button className="btn_theme" onClick={toggleDarkAtom}>Toggle Mode</button>
+          <div style={{display: 'flex'}}>
+            <img className="main_logo" src={process.env.PUBLIC_URL + '/img/coin-app-logo.png'} alt="Example" />
+            <Title>COIN Tracker</Title>
+          </div>
           <ThemeButton />
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>

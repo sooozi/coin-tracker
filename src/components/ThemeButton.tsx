@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
+import { useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
+import { isDarkAtom } from '../atoms';
 
 const Container = styled.div`
   cursor: pointer;
@@ -15,30 +17,10 @@ const ToggleWrap = styled.div`
     position: relative;
     overflow: hidden;
     transition: all 300ms ease;
-    box-shadow: inset -3px 5px 5px rgb(0 0 0 / 10%), inset -2px -5px 5px rgba(0, 0, 0, 0.2), 4px 4px 4px rgba(255, 255, 255, 1);
+    box-shadow: inset -3px 5px 5px rgb(0 0 0 / 10%), inset -2px -5px 5px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(255, 255, 255, 1);
     &.night {
         background-color: #1d1f2b;
-    }
-`;
-
-const ToggleInput = styled.input`
-    display: none;
-    :checked ~ .clouds {
-        top: 150%;
-    }
-    :checked ~ .sun-moon {
-        left: calc(100% - 1.1rem);
-        background-color: #c4c9d2;
-        transform: rotateZ(180deg);
-    }
-    :checked ~ .backdrops {
-        left: calc(100% - 1.3rem);
-    }
-    :checked ~ .sun-moon .crater {
-        display: block;
-    }
-    :checked ~ .stars {
-        top: 50%;
+        box-shadow: inset -3px 5px 5px rgb(126 126 126 / 10%), inset -2px -5px 5px rgb(116 116 116 / 20%), 2px 2px 4px rgb(89 83 83);
     }
 `;
 
@@ -220,17 +202,39 @@ const Crater = styled.div`
     }
 `;
 
-
+const ToggleInput = styled.input`
+    display: none;
+    :checked ~ ${CloudWrap} {
+        top: 150%;
+    }
+    :checked ~ ${SunMoonWrap} {
+        left: calc(100% - 1.1rem);
+        background-color: #c4c9d2;
+        transform: rotateZ(180deg);
+    }
+    :checked ~ ${BackdropWrap} {
+        left: calc(100% - 1.3rem);
+    }
+    :checked ~ ${SunMoonWrap} .crater {
+        display: block;
+    }
+    :checked ~ ${StarWrap} {
+        top: 50%;
+    }
+`;
 
 
 
 
 function ThemeButton () {
+    const setDarkAtom = useSetRecoilState(isDarkAtom);
+    const toggleDarkAtom = () => setDarkAtom(prev => !prev);
+
     return (
         <>
             <Container>
-                <ToggleWrap>
-                    <ToggleInput />
+                <ToggleWrap onClick={toggleDarkAtom}>
+                    <ToggleInput type="checkbox" />
                     <CloudWrap>
                         <CloudCont className="clouds"></CloudCont>
                     </CloudWrap>
