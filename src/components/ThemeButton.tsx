@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { isDarkAtom } from '../atoms';
@@ -204,6 +205,7 @@ const Crater = styled.div`
 
 const ToggleInput = styled.input`
     display: none;
+
     :checked ~ ${CloudWrap} {
         top: 150%;
     }
@@ -224,17 +226,20 @@ const ToggleInput = styled.input`
 `;
 
 
-
-
 function ThemeButton () {
     const setDarkAtom = useSetRecoilState(isDarkAtom);
-    const toggleDarkAtom = () => setDarkAtom(prev => !prev);
+    const [isChecked, setIsChecked] = useState(false);
+
+    const toggleDarkAtom = () => {
+        setDarkAtom((prev) => !prev);
+        setIsChecked((prev) => !prev);
+    };
 
     return (
         <>
             <Container>
-                <ToggleWrap onClick={toggleDarkAtom}>
-                    <ToggleInput type="checkbox" />
+                <ToggleWrap onClick={toggleDarkAtom} className={isChecked ? 'night' : ''}>
+                    <ToggleInput type="checkbox" checked={isChecked} />
                     <CloudWrap>
                         <CloudCont className="clouds"></CloudCont>
                     </CloudWrap>
