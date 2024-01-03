@@ -18,7 +18,7 @@ const GridWrapper = styled.div`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.overviewBgColor};
   padding: 10px;
   border-radius: 10px;
   width: 100%;

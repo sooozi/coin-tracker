@@ -407,11 +407,11 @@ function Coin() {
 
               <Overview>
                 <OverviewItem>
-                  <span>Total Suply</span>
+                  <span className="txt_tit">Total Suply</span>
                   <span>{tickersData?.total_supply.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </OverviewItem>
                 <OverviewItem>
-                  <span>Max Supply</span>
+                  <span className="txt_tit">Max Supply</span>
                   <span>{tickersData?.max_supply.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </OverviewItem>
               </Overview>

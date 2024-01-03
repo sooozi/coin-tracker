@@ -22,6 +22,11 @@ const ToggleWrap = styled.div`
     &.night {
         background-color: #1d1f2b;
         box-shadow: inset -3px 5px 5px rgb(126 126 126 / 10%), inset -2px -5px 5px rgb(116 116 116 / 20%), 2px 2px 4px rgb(89 83 83);
+        .sun-moon {
+            left: calc(100% - 1.1rem);
+            background: linear-gradient(130deg, #a1b4d1, #fefefd);
+            transform: rotateZ(180deg);
+        }
     }
 `;
 
@@ -29,22 +34,19 @@ const CloudWrap = styled.div`
     position: absolute;
     height: 100%;
     width: 100%;
-    top: 50%;
+    top: 0;
     left: 0;
-    transform: translate(0, -50%);
     transition: all 300ms ease;
 `;
 
 const CloudCont = styled.div`
     position: absolute;
-    right: 10%;
-    top: 50%;
-    background-color: #fbfbfb;
+    right: 0;
+    top: 0;
     background: url("https://firebasestorage.googleapis.com/v0/b/archiprivatechat.appspot.com/o/public%2FClouds.png?alt=media&token=86cc7c55-ee79-4ff7-a875-da234fa5619e&_gl=1*xlhdpj*_ga*MzczMTQ1OTY0LjE2OTI5NDE3OTY.*_ga_CW55HF8NVT*MTY5OTIzNTEyNS43LjEuMTY5OTIzNTM0Mi41Ny4wLjA.");;
-    height: 0.2rem;
-    width: 1rem;
-    transform: scale(-0.8, 0.8);
-    &::before {
+    height: 2rem;
+    width: 2rem;
+    /* &::before {
         content: "";
         position: absolute;
         background-color: #fbfbfb;
@@ -63,7 +65,7 @@ const CloudCont = styled.div`
         bottom: 18px;
         left: 10px;
         border-radius: 100%;
-    }
+    } */
 `;
 
 const BackdropWrap = styled.div`
@@ -107,9 +109,8 @@ const StarWrap = styled.div`
     position: absolute;
     height: 100%;
     width: 100%;
-    top: -50%;
+    top: 0;
     left: 0;
-    transform: translate(0, -50%);
     transition: all 300ms ease;
 `;
 
@@ -117,8 +118,8 @@ const StarCont = styled.div`
     position: absolute;
     left: 10%;
     top: 50%;
-    height: 6px;
-    width: 6px;
+    height: 2px;
+    width: 2px;
     border-radius: 100%;
     background-color: #c4c9d2;
     box-shadow: 0 0 4px #fff;
@@ -127,30 +128,32 @@ const StarCont = styled.div`
         content: "";
         position: absolute;
         left: 300%;
-        top: 300%;
-        height: 4px;
-        width: 4px;
+        top: 200%;
+        height: 3px;
+        width: 3px;
         border-radius: 100%;
         background-color: #c4c9d2;
         box-shadow: 0 0 4px #fff;
+        animation: twinkle 1.9s infinite alternate;
     }
     &::after {
         content: "";
         position: absolute;
         left: 400%;
-        bottom: 400%;
-        height: 5px;
-        width: 5px;
+        bottom: 300%;
+        height: 2.5px;
+        width: 2.5px;
         border-radius: 100%;
         background-color: #c4c9d2;
         box-shadow: 0 0 4px #fff;
+        animation: twinkle 1.7s infinite alternate;
     }
     @keyframes twinkle {
-        from {
+        0% {
             opacity: 1;
         }
 
-        to {
+        100% {
             opacity: 0.5;
         }
     }
@@ -163,8 +166,7 @@ const SunMoonWrap = styled.div`
     border-radius: 100%;
     position: absolute;
     left: 1px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 1.5px;
     transition: 300ms ease;
 `;
 
@@ -208,11 +210,6 @@ const ToggleInput = styled.input`
 
     :checked ~ ${CloudWrap} {
         top: 150%;
-    }
-    :checked ~ ${SunMoonWrap} {
-        left: calc(100% - 1.1rem);
-        background-color: #c4c9d2;
-        transform: rotateZ(180deg);
     }
     :checked ~ ${BackdropWrap} {
         left: calc(100% - 1.3rem);
