@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import ThemeButton from "../components/ThemeButton";
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,13 @@ const AppContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   background-color: ${(props) => props.theme.bgColor};
+`;
+
+const HeaderWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 `;
 
 const ContWrap = styled.div`
@@ -231,7 +239,7 @@ const IconBox = styled.div`
 const Img = styled.img`
     width: 30px;
     height: 30px;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 `;
 
 interface IPercent24h {
@@ -347,7 +355,10 @@ function Coin() {
       
       <AppContainer>
 
-        <Header />
+        <HeaderWrap className="headerWrap">
+          <Header />
+          <ThemeButton />
+        </HeaderWrap>
 
         <div>
           <TitleLogoCont>
