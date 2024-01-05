@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/coin-tracker/static/js/main.455d080f.js",
+    "main.js": "/coin-tracker/static/js/main.f02ff39d.js",
     "static/js/787.37db8169.chunk.js": "/coin-tracker/static/js/787.37db8169.chunk.js",
     "index.html": "/coin-tracker/index.html",
-    "main.455d080f.js.map": "/coin-tracker/static/js/main.455d080f.js.map",
+    "main.f02ff39d.js.map": "/coin-tracker/static/js/main.f02ff39d.js.map",
     "787.37db8169.chunk.js.map": "/coin-tracker/static/js/787.37db8169.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.455d080f.js"
+    "static/js/main.f02ff39d.js"
   ]
 }
