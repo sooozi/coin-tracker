@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { isDarkAtom } from "../atoms";
 import ThemeButton from "../components/ThemeButton";
 // import { fetchCoins } from "../api";
 
@@ -83,6 +86,7 @@ interface CoinInterface {
 
 function Coins() {
   // useQuery('allCoins', fetchCoins);
+  const isDarkMode = useRecoilValue(isDarkAtom);
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {

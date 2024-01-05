@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { isDarkAtom } from '../atoms';
 
@@ -46,26 +45,6 @@ const CloudCont = styled.div`
     background: url("https://firebasestorage.googleapis.com/v0/b/archiprivatechat.appspot.com/o/public%2FClouds.png?alt=media&token=86cc7c55-ee79-4ff7-a875-da234fa5619e&_gl=1*xlhdpj*_ga*MzczMTQ1OTY0LjE2OTI5NDE3OTY.*_ga_CW55HF8NVT*MTY5OTIzNTEyNS43LjEuMTY5OTIzNTM0Mi41Ny4wLjA.");;
     height: 2rem;
     width: 2rem;
-    /* &::before {
-        content: "";
-        position: absolute;
-        background-color: #fbfbfb;
-        height: 2rem;
-        width: 8rem;
-        bottom: 1.8rem;
-        left: 0;
-        border-radius: 100px 100px 0 0px;
-    }
-    &::after {
-        content: "";
-        position: absolute;
-        background-color: #fbfbfb;
-        height: 4rem;
-        width: 4rem;
-        bottom: 18px;
-        left: 10px;
-        border-radius: 100%;
-    } */
 `;
 
 const BackdropWrap = styled.div`
@@ -220,16 +199,24 @@ const ToggleInput = styled.input`
     :checked ~ ${StarWrap} {
         top: 50%;
     }
+    :checked ~ ${ToggleWrap}.night {
+    background-color: #1d1f2b;
+    box-shadow: inset -3px 5px 5px rgb(126 126 126 / 10%), inset -2px -5px 5px rgb(116 116 116 / 20%), 2px 2px 4px rgb(89 83 83);
+    .sun-moon {
+      left: calc(100% - 1.1rem);
+      background: linear-gradient(130deg, #a1b4d1, #fefefd);
+      transform: rotateZ(180deg);
+    }
+  }
 `;
 
 
 function ThemeButton () {
     const setDarkAtom = useSetRecoilState(isDarkAtom);
-    const [isChecked, setIsChecked] = useState(false);
+    const isChecked = useRecoilValue(isDarkAtom);
 
     const toggleDarkAtom = () => {
         setDarkAtom((prev) => !prev);
-        setIsChecked((prev) => !prev);
     };
 
     return (
