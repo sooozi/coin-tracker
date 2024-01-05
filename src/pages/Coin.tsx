@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 const AppContainer = styled.div`
-  padding: 20px 10px 20px 15px;
+  padding: 25px 15px 20px;
   width: 100%;
   min-width: 300px;
   min-height: 600px;

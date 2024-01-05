@@ -18,7 +18,7 @@ const ToggleWrap = styled.div`
     position: relative;
     overflow: hidden;
     transition: all 300ms ease;
-    box-shadow: inset -3px 5px 5px rgb(0 0 0 / 10%), inset -2px -5px 5px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(255, 255, 255, 1);
+    box-shadow: inset -3px 5px 5px rgb(0 0 0 / 10%), inset -2px -5px 5px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(255, 255, 255, 0.5);
     &.night {
         background-color: #1d1f2b;
         box-shadow: inset -3px 5px 5px rgb(126 126 126 / 10%), inset -2px -5px 5px rgb(116 116 116 / 20%), 2px 2px 4px rgb(89 83 83);
