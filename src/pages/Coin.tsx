@@ -362,7 +362,8 @@ function Coin() {
 
         <div>
           <TitleLogoCont>
-            <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}/>
+            {/* <Img src={`https://coinicons-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}/> */}
+            <Img src={`https://static.coinpaprika.com/coin/${coinId}/logo.png`}/>
             <Title>
                 {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
             </Title>
