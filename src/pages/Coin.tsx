@@ -246,9 +246,9 @@ interface IPercent24h {
   percent24h: number | undefined;
 }
 
-interface RouteParams {
-  coinId: string;
-}
+// interface RouteParams {
+//   coinId: string;
+// }
 
 interface RouteState {
   state : {name: string}
