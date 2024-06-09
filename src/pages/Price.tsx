@@ -5,9 +5,6 @@ import { useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinTickers } from "../api";
 
-const Container = styled.div`
-`;
-
 const GridWrapper = styled.div`
   display: grid;
   justify-items: center;
@@ -96,17 +93,31 @@ interface IPriceProps {
 
 function Price() {
     const coinId = useOutletContext();
-    const { isLoading: IPriceLoading, data: IPriceData } = useQuery<IPriceProps>(
+
+    const { isLoading: priceLoading, data: priceData } = useQuery<IPriceProps>(
         ["tickers", coinId],
         () => fetchCoinTickers(`${coinId}`)
       );
 
-    const loading = IPriceLoading;
+
+
     const mql = matchMedia("screen and (min-width: 400px)");
 
+    const isOverZero = priceData?.quotes.USD.percent_change_1h > 0 ? true : false
+
+const classnameA = `fa-solid fa-arrow-trend-up ${mql.matches ? 'aa' : 'fa-lg'}`
+
+const classnameB = "fa-solid fa-minus ${}"
+
+
+
+const keys = Object.keys(data?.quote.DTO) // ["percent_change_1h'" "percent_change_1h"]
+
+keys.map((key) => data.quote.DTO[key])
+
   return (
-    <Container>
-        {loading ? (
+    <>
+        {priceLoading ? (
           <>Loading...💤</>
         ) : (
           <>
@@ -116,17 +127,11 @@ function Price() {
                   <span className="txt_tit">From 1 hour</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_1h}>
                     <Percent>
-                      {IPriceData?.quotes.USD.percent_change_1h && IPriceData?.quotes.USD.percent_change_1h > 0
-                        ? `+${IPriceData?.quotes.USD.percent_change_1h}%`
-                        : `${IPriceData?.quotes.USD.percent_change_1h}%`}
+                       {isOverZero?'+':''}${IPriceData?.quotes.USD.percent_change_1h}
                     </Percent>
-                    {IPriceData?.quotes.USD.percent_change_1h ? (
-                      IPriceData?.quotes.USD.percent_change_1h > 0 ? (
-                        mql.matches ? (
-                          <i className="fa-solid fa-arrow-trend-up fa-2x"></i>
-                        ) : (
-                          <i className="fa-solid fa-arrow-trend-up fa-lg"></i>
-                        )
+                    {isOverZero ? (
+                          <i className={`fa-solid fa-arrow-trend-up ${mql.matches ? 'aa' : 'fa-lg'}`}></i>
+                       
                       ) : IPriceData?.quotes.USD.percent_change_1h < 0 ? (
                         mql.matches ? (
                           <i className="fa-solid fa-arrow-trend-down fa-2x"></i>
@@ -148,6 +153,7 @@ function Price() {
               </Overview>
 
               <Overview>
+                {prices.map()}
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">From 12 hour</span>
                   <PercentBox percent={IPriceData?.quotes.USD.percent_change_12h}>
@@ -329,7 +335,7 @@ function Price() {
             </GridWrapper>
           </>
         )}
-    </Container>
+    </>
   );
 }
   

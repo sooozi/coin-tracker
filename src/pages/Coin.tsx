@@ -325,17 +325,23 @@ interface Ireficon {
   isHref: string | undefined;
 }
 
+const links = [
+ { title: 'github',
+  color: ''
+}]
+
 function Coin() {
   const { coinId } = useParams< {coinId:string} >();
-  const { state } = useLocation() as LocationState;
+  const { state } = useLocation<{state: {
+    name: string
+  }}>()
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<InfoData>();
   const priceMatch = useMatch("/coin-tracker/:coinId/Price");
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
-  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
-    ["info", coinId],
-    () => fetchCoinInfo(`${coinId}`)
-  );
+
+  const { isLoading: infoLoading, data: infoData } = useGetCoin()
+
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
     () => fetchCoinTickers(`${coinId}`),
@@ -432,6 +438,7 @@ function Coin() {
                 <OverviewItem className="no_flex">
                   <span className="txt_tit">Reference Link</span>
                   <div>
+                    {/* {links.map()} */}
                     <RefLink
                       target="_blank"
                       isHref={infoData?.links.source_code}

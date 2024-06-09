@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { isDarkAtom } from "../atoms";
 import ThemeButton from "../components/ThemeButton";
 // import { fetchCoins } from "../api";
 
@@ -86,17 +82,21 @@ interface CoinInterface {
 
 function Coins() {
   // useQuery('allCoins', fetchCoins);
-  const isDarkMode = useRecoilValue(isDarkAtom);
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-      (async() => {
-          const response = await fetch("https://api.coinpaprika.com/v1/coins");
-          const json = await response.json();
-          setCoins(json.slice(0, 50));
-          setLoading(false);
-      })()
-  }, []);
+  // const isDarkMode = useRecoilValue(isDarkAtom);
+  // const [coins, setCoins] = useState<CoinInterface[]>([]);
+  // const [loading, setLoading] = useState(true);
+
+  const {data: coins, loading} = useGetCoin()
+
+  // useEffect(() => {
+  //     (async() => {
+  //         const response = await fetch("https://api.coinpaprika.com/v1/coins");
+  //         const json = await response.json();
+  //         setCoins(json.slice(0, 50));
+  //         setLoading(false);
+  //     })()
+  // }, []);
+
   return (
     <Container>
       <Helmet>
@@ -111,11 +111,9 @@ function Coins() {
           <ThemeButton />
         </Header>
         {loading ? ("Loading...🪄") : (<CoinsList>
-        {coins.map((coin) => (
+        {coins?.map((coin) => (
           <Coin key={coin.id}>
             <Link to={`/coin-tracker/${coin.id}`} state={{ name: coin.name }}>
-              {/* <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/> */}
-              {/* <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/> */}
               <Img src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`}/>
               {coin.name} &rarr;
             </Link>
