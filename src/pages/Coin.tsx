@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from "styled-components";
-import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import { fetchCoinTickers } from "../api";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ThemeButton from "../components/ThemeButton";
@@ -334,9 +334,7 @@ function Coin() {
   const { coinId } = useParams< {coinId:string} >();
   const { state } = useLocation<{state: {
     name: string
-  }}>()
-  // const [loading, setLoading] = useState(true);
-  // const [info, setInfo] = useState<InfoData>();
+  }}>
   const priceMatch = useMatch("/coin-tracker/:coinId/Price");
   const chartMatch = useMatch("/coin-tracker/:coinId/Chart");
 
